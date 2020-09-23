@@ -10,7 +10,7 @@ export default class ResetPassword extends React.Component {
         };
     }
 
-    handleInputChange() {
+    handleInputChange(e) {
         let name = e.target.name;
         this.setState({
             [name]: e.target.value
@@ -30,6 +30,7 @@ export default class ResetPassword extends React.Component {
                     this.setState({
                         currentlyDisplayed: 2,
                     });
+                    
                 }
             })
             .catch(err => console.log('err in POST request in ResetPW: ', err));
@@ -42,15 +43,31 @@ export default class ResetPassword extends React.Component {
                 {/* FIRST DISPLAY *******  FIRST DISPLAY  ******** FIRST DISPLAY */}
                 {this.state.currentlyDisplayed == 1 && (
                     <>
+                        {this.state.error && (
+                            <p className="error">
+                                something went wrong. please, try again.
+                            </p>
+                        )}
                         <label htmlFor="email-reset-password">
                             please enter your email address:{" "}
                         </label>
                         <input
                             onChange={(e) => this.handleInputChange(e)}
-                            name="email" id="email-reset-password"
-                            placeholder="email address"/>
+                            name="email"
+                            id="email-reset-password"
+                            placeholder="email address"
+                        />
 
-                        <button onClick={(e) => this.handleClick(e)}>reset password</button>
+                        <button onClick={(e) => this.handleClick(e)}>
+                            reset password
+                        </button>
+                    </>
+                )}
+
+                {/* SECOND DISPLAY ********** SECOND DISPLAY *********** SECOND DISPLAY */}
+                {this.state.currentlyDisplayed == 2 && (
+                    <>
+                        <h1>here is the second display</h1>
                     </>
                 )}
             </div>

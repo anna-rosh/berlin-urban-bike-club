@@ -121,7 +121,7 @@ app.post('/password/reset/start', (req, res) => {
 
             db.addCode(email, resetCode)
                 .then(() => {
-                    ses.sendEmail([email], `plese use the following code to reset your password: ${resetCode}`, 'reset your password')
+                    ses.sendEmail(email, resetCode, 'reset your password')
                     
                     res.json({ error: false });
                 })
