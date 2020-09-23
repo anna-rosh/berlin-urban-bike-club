@@ -39,7 +39,7 @@ export default class Login extends React.Component {
         return (
             <>
                 <h3>log in</h3>
-                
+
                 {this.state.error && (
                     <p className="error">
                         something went wrong. please, try again.
@@ -63,6 +63,7 @@ export default class Login extends React.Component {
                 <button onClick={(e) => this.handleClick(e)}>log in</button>
 
                 <Link to="/login">to the registration page</Link>
+                <Link to="/password/reset/start">click here to reset your password</Link>
             </>
         );
     }

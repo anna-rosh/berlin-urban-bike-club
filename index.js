@@ -5,6 +5,8 @@ const cookieSession = require('cookie-session');
 const db = require('./db');
 const bc = require('./bc');
 const csurf = require('csurf');
+const cryptoRandomString = require("crypto-random-string");
+const ses = require('./ses');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -84,7 +86,7 @@ app.post('/login', (req, res) => {
 
     const { email, password } = req.body;
 
-    db.checkPassword(email)
+    db.checkEmail(email)
         .then(({ rows }) => {
             const { password:encodedPassword, id } = rows[0];
 
@@ -104,7 +106,32 @@ app.post('/login', (req, res) => {
 
         })
         .catch(err => {
-            console.log('err in checkPassword: ', err);
+            console.log('err in checkEmail: ', err);
+            res.json({ error: true });
+        });
+
+});
+
+app.post('/password/reset/start', (req, res) => {
+    const { email } = req.body;
+
+    db.checkEmail(email)
+        .then(() => {
+            const resetCode = cryptoRandomString({ length: 6 });
+
+            db.addCode(email, resetCode)
+                .then(() => {
+                    ses.sendEmail([email], `plese use the following code to reset your password: ${resetCode}`, 'reset your password')
+                    
+                    res.json({ error: false });
+                })
+                .catch(err => {
+                    console.log('err in addCode: ', err);
+                    res.json({ error: true });
+                });
+        })
+        .catch(err => {
+            console.log('err in checkEmail for reseting password: ', err);
             res.json({ error: true });
         });
 

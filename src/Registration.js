@@ -36,7 +36,7 @@ export default class Registration extends React.Component {
 
             })
             .catch(err => {
-                console.log('err in POST request: ', err);
+                console.log('err in POST request in registration: ', err);
             });
 
     }

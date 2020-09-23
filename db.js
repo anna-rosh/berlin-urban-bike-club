@@ -16,10 +16,18 @@ module.exports.addUser = (first, last, email, password) => {
     );
 };
 
-module.exports.checkPassword = (email) => {
+module.exports.checkEmail = (email) => {
     return db.query(
         `SELECT * FROM users
         WHERE email = $1`,
         [email]
+    );
+};
+
+module.exports.addCode = (email, code) => {
+    return db.query(
+        `INSERT INTO resetcodes (email, code)
+        VALUES ($1, $2)`,
+        [email, code]
     );
 };
