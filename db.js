@@ -15,3 +15,11 @@ module.exports.addUser = (first, last, email, password) => {
         [first, last, email, password]
     );
 };
+
+module.exports.checkPassword = (email) => {
+    return db.query(
+        `SELECT * FROM users
+        WHERE email = $1`,
+        [email]
+    );
+};

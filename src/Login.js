@@ -2,7 +2,7 @@ import axios from './axios';
 import React from 'react';
 import { Link } from "react-router-dom";
 
-export default class Registration extends React.Component {
+export default class Login extends React.Component {
     constructor() {
         super();
         this.state = {
@@ -17,13 +17,12 @@ export default class Registration extends React.Component {
         this.setState({
             [name]: e.target.value,
         });
-
     }
 
     handleClick(e) {
         e.preventDefault();
 
-        axios.post('/register', this.state)
+        axios.post('/login', this.state)
             .then((resp) => {
 
                 if (resp.data.error) {
@@ -31,41 +30,21 @@ export default class Registration extends React.Component {
                         error: true
                     });
                 } else {
-                    location.replace('/');  
+                    location.replace('/');
                 }
-
             })
-            .catch(err => {
-                console.log('err in POST request: ', err);
-            });
-
     }
 
     render() {
         return (
-            <div>
-                <h3>Register here:</h3>
-
+            <>
+                <h3>log in</h3>
+                
                 {this.state.error && (
                     <p className="error">
                         something went wrong. please, try again.
                     </p>
                 )}
-
-                <label htmlFor="first">first name: </label>
-                {/* if i am using the event obj i need to pass it to the function while calling it */}
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="first"
-                    placeholder="first name"
-                />
-
-                <label htmlFor="last">last name: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="last"
-                    placeholder="last name"
-                />
 
                 <label htmlFor="email">email address: </label>
                 <input
@@ -81,10 +60,10 @@ export default class Registration extends React.Component {
                     placeholder="password"
                 />
 
-                <button onClick={(e) => this.handleClick(e)}>register</button>
+                <button onClick={(e) => this.handleClick(e)}>log in</button>
 
-                <Link to="/login">click here to log in</Link>
-            </div>
+                <Link to="/login">to the registration page</Link>
+            </>
         );
     }
 }

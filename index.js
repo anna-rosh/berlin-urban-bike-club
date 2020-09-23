@@ -4,6 +4,7 @@ const compression = require('compression');
 const cookieSession = require('cookie-session');
 const db = require('./db');
 const bc = require('./bc');
+const csurf = require('csurf');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -27,6 +28,13 @@ app.use(
         maxAge: 1000 * 60 * 60 * 24 * 14,
     })
 );
+
+app.use(csurf());
+
+app.use(function (req, res, next) {
+    res.cookie("mytoken", req.csrfToken());
+    next();
+});
 
 app.use(express.static('./public'));
 
@@ -67,6 +75,36 @@ app.post('/register', (req, res) => {
         })
         .catch((err) => {
             console.log("err in hash: ", err); 
+            res.json({ error: true });
+        });
+
+});
+
+app.post('/login', (req, res) => {
+
+    const { email, password } = req.body;
+
+    db.checkPassword(email)
+        .then(({ rows }) => {
+            const { password:encodedPassword, id } = rows[0];
+
+            bc.compare(password, encodedPassword)
+                .then((result) => {
+                    if (result == true) {
+                        req.session.userId = id;
+                        res.json({ error: false });
+                    } else {
+                        res.json({ error: true });
+                    }
+                })
+                .catch(err => {
+                    console.log('err in bc.compare: ', err);
+                    res.json({ error: true });
+                });
+
+        })
+        .catch(err => {
+            console.log('err in checkPassword: ', err);
             res.json({ error: true });
         });
 
