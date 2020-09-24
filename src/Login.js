@@ -62,7 +62,7 @@ export default class Login extends React.Component {
 
                 <button onClick={(e) => this.handleClick(e)}>log in</button>
 
-                <Link to="/login">to the registration page</Link>
+                <Link to="/">to the registration page</Link>
                 <Link to="/password/reset/start">click here to reset your password</Link>
             </>
         );

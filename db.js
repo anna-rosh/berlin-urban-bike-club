@@ -51,3 +51,12 @@ module.exports.updatePassword = (password, email) => {
         [password, email]
     );
 };
+
+module.exports.getUserById = (id) => {
+    return db.query(
+        `SELECT first, last, img_url, bio, id
+        FROM users
+        WHERE id = $1`,
+        [id]
+    );
+};

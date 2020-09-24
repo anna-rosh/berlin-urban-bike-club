@@ -126,7 +126,7 @@ export default class ResetPassword extends React.Component {
 
                 {this.state.currentlyDisplayed == 3 && (
                     <>
-                        <h1>here is the third display</h1>
+                        <h1>your password was successfully reset!</h1>
                         <Link to="/login">click here to log in with the new password</Link>
                     </>
                 )}

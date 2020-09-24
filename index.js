@@ -49,15 +49,6 @@ app.get('/welcome', (req, res) => {
         res.sendFile(__dirname + "/index.html"); 
     }
 });
-////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
-app.get('*', function(req, res) { 
-    if (!req.session.userId) {
-        res.redirect('/welcome');
-    } else {
-        res.sendFile(__dirname + '/index.html');  
-    }
-});
-////////////////// DO NOT DELETE CODE ABOVE THIS LINE //////////////////
 
 app.post('/register', (req, res) => {
 
@@ -170,6 +161,36 @@ app.post('/password/reset/verify', (req, res) => {
         });
 
 });
+
+app.get('/user', async function(req, res) {
+
+    // db.getUserById(req.session.userId)
+    //     .then(({ rows }) => {
+    //         console.log('current user: ', rows[0]);
+    //         res.json(rows[0]);
+    //     })
+    //     .catch(err => {
+    //         console.log('err in getUserById: ', err);
+    //     });
+
+    try {
+        const { rows } = await db.getUserById(req.session.userId);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("err in getUserById: ", err);
+    }
+
+});
+
+////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
+app.get('*', function(req, res) { 
+    if (!req.session.userId) {
+        res.redirect('/welcome');
+    } else {
+        res.sendFile(__dirname + '/index.html');  
+    }
+});
+////////////////// DO NOT DELETE CODE ABOVE THIS LINE //////////////////
 
 app.listen(8080, function() {
     console.log("index.js for social network is listening 🦜");
