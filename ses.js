@@ -16,22 +16,22 @@ const ses = new aws.SES({
 exports.sendEmail = (to, body, subject) => {
     return ses
         .sendEmail({
-            Source: "Funky Chicken <funky.chicken@spiced.academy>",
+            Source: "Orchid Savory <orchid.savory@spicedling.email>",
             Destination: {
                 ToAddresses: [to],
             },
             Message: {
                 Body: {
                     Text: {
-                        Data: body
+                        Data: body,
                     },
                 },
                 Subject: {
-                    Data: subject
+                    Data: subject,
                 },
             },
         })
         .promise()
-        .then(() => console.log("it worked!"))
+        .then(() => console.log("the email was sent!"))
         .catch((err) => console.log(err));
 };

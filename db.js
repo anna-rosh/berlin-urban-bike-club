@@ -31,3 +31,23 @@ module.exports.addCode = (email, code) => {
         [email, code]
     );
 };
+
+module.exports.getResentCode = (email) => {
+    return db.query(
+        `SELECT * FROM resetcodes
+        WHERE email = $1
+        AND CURRENT_TIMESTAMP - created_at < INTERVAL '10 minutes'
+        ORDER BY id DESC
+        LIMIT 1`,
+        [email]
+    );
+};
+
+module.exports.updatePassword = (password, email) => {
+    return db.query(
+        `UPDATE users
+        SET password = $1
+        WHERE email = $2`,
+        [password, email]
+    );
+};

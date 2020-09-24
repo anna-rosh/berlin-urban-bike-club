@@ -12,6 +12,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS resetcodes;
 
 CREATE TABLE resetcodes (
+    id SERIAL PRIMARY KEY,
     email VARCHAR NOT NULL CHECK (email != '') REFERENCES users(email),
     code VARCHAR NOT NULL CHECK (code != ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

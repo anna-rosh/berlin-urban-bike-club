@@ -121,7 +121,7 @@ app.post('/password/reset/start', (req, res) => {
 
             db.addCode(email, resetCode)
                 .then(() => {
-                    ses.sendEmail(email, resetCode, 'reset your password')
+                    ses.sendEmail(email, `please use the following code to reset your password: ${resetCode}`, 'reset your password');
                     
                     res.json({ error: false });
                 })
@@ -133,6 +133,40 @@ app.post('/password/reset/start', (req, res) => {
         .catch(err => {
             console.log('err in checkEmail for reseting password: ', err);
             res.json({ error: true });
+        });
+
+});
+
+app.post('/password/reset/verify', (req, res) => {
+    // in req.body we expect to find the properties: code, password, email
+    const { code, password, email } = req.body;
+
+    db.getResentCode(email)
+        .then(({ rows }) => {
+            const currentCode = rows[0].code;
+
+            if (code !== currentCode) {
+                res.json({ error: true });
+            } else {
+                bc.hash(password)
+                    .then(hashedPassword => {
+                        
+                        db.updatePassword(hashedPassword, email)
+                            .then(() => {
+                                res.json({ error: false });
+                            })
+                            .catch(err => {
+                                console.log('err in hash for pw-updating: ', err);
+                                res.json({ error: true });
+                            });
+
+                    })
+                    .catch();
+            }
+        })
+        .catch(err => {
+            console.log('err in getResentCode: ', err);
+            res.json({ error: true});
         });
 
 });
