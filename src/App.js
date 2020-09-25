@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "./axios";
-import ProfilePic from "./ProfilePic";
 import Uploader from "./Uploader";
+import Profile from "./Profile";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -30,10 +30,12 @@ export default class App extends React.Component {
             <div>
                 <img id="logo" src="/img/cat-4475583_640.png" alt="logo" />
 
-                <ProfilePic
+                <Profile
                     first={this.state.first}
                     last={this.state.last}
                     imageUrl={this.state.img_url}
+                    bio={this.state.bio}
+                    setBio={(newBio) => {}}
                     clickHandler={() =>
                         this.setState({ uploaderIsVisible: true })
                     }

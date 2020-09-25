@@ -43,7 +43,7 @@ export default class Uploader extends React.Component {
                 <p>choose an image to set your new profile picture</p>
                 {this.state.error && (
                     <p className="error">
-                        please choose an image
+                        no image chosen
                     </p>
                 )}
 
