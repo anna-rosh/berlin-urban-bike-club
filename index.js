@@ -7,6 +7,11 @@ const bc = require('./bc');
 const csurf = require('csurf');
 const cryptoRandomString = require("crypto-random-string");
 const ses = require('./ses');
+const multer = require("multer");
+const s3 = require("./s3");
+const { s3Url } = require("./config");
+const uidSafe = require("uid-safe");
+const path = require("path");
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -40,7 +45,25 @@ app.use(function (req, res, next) {
 
 app.use(express.static('./public'));
 
-///////////////////////////////////// END MIDDLEWARE ////////////////////////////
+const diskStorage = multer.diskStorage({
+    destination: function (req, file, callback) {
+        callback(null, __dirname + "/uploads");
+    },
+    filename: function (req, file, callback) {
+        uidSafe(24).then(function (uid) {
+            callback(null, uid + path.extname(file.originalname));
+        });
+    },
+});
+
+const uploader = multer({
+    storage: diskStorage,
+    limits: {
+        fileSize: 2097152,
+    },
+});
+
+///////////////////////////////////// END MIDDLEWARE & OTHER SETTINGS ////////////////////////////
 
 app.get('/welcome', (req, res) => {
     if (req.session.userId) {
@@ -164,21 +187,32 @@ app.post('/password/reset/verify', (req, res) => {
 
 app.get('/user', async function(req, res) {
 
-    // db.getUserById(req.session.userId)
-    //     .then(({ rows }) => {
-    //         console.log('current user: ', rows[0]);
-    //         res.json(rows[0]);
-    //     })
-    //     .catch(err => {
-    //         console.log('err in getUserById: ', err);
-    //     });
-
     try {
         const { rows } = await db.getUserById(req.session.userId);
         res.json(rows[0]);
     } catch (err) {
         console.log("err in getUserById: ", err);
     }
+
+});
+
+app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async function(req, res) {
+
+    if (!req.file) {
+        res.json({ error: true });
+    } else {
+        const { filename } = req.file;
+        const imageUrl = `${s3Url}${filename}`;
+
+        try {
+            const { rows } = await db.updateProfilePicUrl(imageUrl, req.session.userId);
+            res.json(rows[0]);
+
+        } catch (err) {
+            console.log("err in updateProfilePicUrl", err);
+        }
+
+    } // closes else statement
 
 });
 

@@ -60,3 +60,13 @@ module.exports.getUserById = (id) => {
         [id]
     );
 };
+
+module.exports.updateProfilePicUrl = (url, id) => {
+    return db.query(
+        `UPDATE users
+        SET img_url = $1
+        WHERE id = $2
+        RETURNING img_url`,
+        [url, id]
+    );
+};

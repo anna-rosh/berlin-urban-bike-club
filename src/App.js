@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import ProfilePic from "./ProfilePic";
+import Uploader from "./Uploader";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -21,14 +22,13 @@ export default class App extends React.Component {
     }
 
     render() {
-        // if (!this.state.id) {
-        //     return 'Loading...';
-        // }
+        if (!this.state.id) {
+            return 'Loading...';
+        }
 
         return (
             <div>
                 <img id="logo" src="/img/cat-4475583_640.png" alt="logo" />
-                {this.state.first && (<p>hello, {this.state.first}</p>)}
 
                 <ProfilePic
                     first={this.state.first}
@@ -39,7 +39,14 @@ export default class App extends React.Component {
                     }
                 />
 
-                {/* {this.state.uploaderIsVisible && <Uploader />} */}
+                {this.state.uploaderIsVisible && <Uploader
+                    setProfilePic={(newPic) => {
+                        this.setState({
+                            img_url: newPic,
+                            uploaderIsVisible: false
+                        });
+                    }}
+                />}
             </div>
         );
     }
