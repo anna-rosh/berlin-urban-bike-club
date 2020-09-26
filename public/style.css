@@ -59,7 +59,7 @@
 /* side with the reqistration fields __________ side with the registration fields */
 
 .registration-side {
-    background-color: dimgrey;
+    background-color: rgb(121, 121, 121);
     position: relative;
 }
 
@@ -78,6 +78,7 @@
 .registration-form h1 {
     font-size: 4vw;
     margin-bottom: 40px;
+    letter-spacing: 2px;
 }
 
 .error-field {
@@ -93,20 +94,67 @@
 .registration-form input {
     font-size: 22px;
     padding: 5px 10px;
-    background-color: dimgray;
+    background-color: rgb(121, 121, 121);
     border: 1px solid black;
     margin-bottom: 20px;
+    transition: border 0.5s;
 }
 
-.registration-form input:focus {
+.registration-form input:focus,
+.registration-form input:hover {
     outline: none;
     border: 1px solid white;
 }
 
 .registration-form button {
-    font-size: 22px;
+    cursor: pointer;
+    font-size: 25px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    width: 70%;
     padding: 5px 10px;
+    align-self: center;
+    background-color: rgb(121, 121, 121);
+    border: 1px solid rgb(121, 121, 121);
+    transition: color 0.3s;
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
+
+.registration-form button:hover,
+.registration-form button:focus {
+    outline: none;
+    color: white;
+}
+
+.registration-form button:active {
+    opacity: 0.5;
+}
+
+.log-in-link {
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    transition: top 0.5s, color 0.3s;
+}
+
+.log-in-link:hover {
+    bottom: 3px;
+}
+
+.log-in-link:focus {
+    color: white;
+    outline: none;
+}
+
+.log-in-link:active {
+    opacity: 0.5;
+}
+
+/* ////////////// OTHER STUFF //////////////// */
 
 #logo {
     width: 60px;
