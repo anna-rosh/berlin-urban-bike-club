@@ -35,7 +35,9 @@ export default class App extends React.Component {
                     last={this.state.last}
                     imageUrl={this.state.img_url}
                     bio={this.state.bio}
-                    setBio={(newBio) => {}}
+                    setBio={(newBio) => 
+                        this.setState({ bio: newBio })
+                    }
                     clickHandler={() =>
                         this.setState({ uploaderIsVisible: true })
                     }

@@ -12,6 +12,7 @@ const s3 = require("./s3");
 const { s3Url } = require("./config");
 const uidSafe = require("uid-safe");
 const path = require("path");
+const { async } = require('crypto-random-string');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -213,6 +214,19 @@ app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async fu
         }
 
     } // closes else statement
+
+});
+
+app.post("/update-bio", async function(req, res) {
+    // getting { bio: somevalue } from the client side in req.body
+    try {
+        const { rows } = await db.updateBio(req.body.bio, req.session.userId);
+        res.json(rows[0]);
+
+    } catch (err) {
+        console.log('err in updateBio: ', err);
+        res.json({ error: true });
+    }
 
 });
 
