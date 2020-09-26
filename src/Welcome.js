@@ -6,14 +6,19 @@ import ResetPassword from './ResetPassword';
 
 export default function Welcome() {
     return (
-        <div>
-            <h1>Welcome to my social network</h1>
+        <div className="welcome-pages-container">
+            <div className="welcome">
+                <h1 id="welcome-title">welcome to</h1>
+                <img id="logo-large" src="/img/bicycle.png" />
+                <h1 id="bubc-title">berlin urban bike club</h1>
+                <h2>social network for berliners on bike</h2>
+            </div>
             <HashRouter>
-                <div>
+                <>
                     <Route exact path="/" component={Registration} />
                     <Route path="/login" component={Login} />
                     <Route path="/password/reset" component={ResetPassword} />
-                </div>
+                </>
             </HashRouter>
         </div>
     );

@@ -43,47 +43,51 @@ export default class Registration extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>Register here:</h3>
+            <div className="registration-side">
+                <div className="registration-form">
+                    <h1>register now: </h1>
 
-                {this.state.error && (
-                    <p className="error">
+                    {this.state.error
+                        ? <p className="error-field">
                         something went wrong. please, try again.
-                    </p>
-                )}
+                        </p> 
+                        : <p className="error-field"></p>
+                    }
 
-                <label htmlFor="first">first name: </label>
-                {/* if i am using the event obj i need to pass it to the function while calling it */}
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="first"
-                    placeholder="first name"
-                />
+                    <label htmlFor="first-reg">first name: </label>
+                    
+                    <input
+                        onChange={(e) => this.handleInputChange(e)}
+                        name="first"
+                        id="first-reg"
+                    />
 
-                <label htmlFor="last">last name: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="last"
-                    placeholder="last name"
-                />
+                    <label htmlFor="last-reg">last name: </label>
+                    <input
+                        onChange={(e) => this.handleInputChange(e)}
+                        name="last"
+                        id="last-reg"
+                    />
 
-                <label htmlFor="email">email address: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="email"
-                    placeholder="email address"
-                />
+                    <label htmlFor="email-reg">email address: </label>
+                    <input
+                        onChange={(e) => this.handleInputChange(e)}
+                        name="email"
+                        id="email-reg"
+                    />
 
-                <label htmlFor="password">password: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="password"
-                    placeholder="password"
-                />
+                    <label htmlFor="password-reg">password: </label>
+                    <input
+                        onChange={(e) => this.handleInputChange(e)}
+                        name="password"
+                        id="password-reg"
+                    />
 
-                <button onClick={(e) => this.handleClick(e)}>register</button>
+                    <button onClick={(e) => this.handleClick(e)}>register</button>
 
-                <Link to="/login">click here to log in</Link>
+                    <Link to="/login">click here to log in</Link> 
+                </div>
+                
             </div>
         );
     }

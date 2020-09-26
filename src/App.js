@@ -28,7 +28,7 @@ export default class App extends React.Component {
 
         return (
             <div>
-                <img id="logo" src="/img/cat-4475583_640.png" alt="logo" />
+                <img id="logo" src="/img/bicycle.png" alt="logo" />
 
                 <Profile
                     first={this.state.first}
