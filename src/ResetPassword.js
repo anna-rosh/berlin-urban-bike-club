@@ -63,73 +63,104 @@ export default class ResetPassword extends React.Component {
 
     render() {
         return (
-            <div>
-                <h3>reset password</h3>
-                {/* FIRST DISPLAY *******  FIRST DISPLAY  ******** FIRST DISPLAY */}
-                {this.state.currentlyDisplayed == 1 && (
-                    <>
-                        {this.state.error && (
-                            <p className="error">
-                                please, use a valid email address
-                            </p>
-                        )}
-                        <label htmlFor="email-reset-password">
-                            enter your email address:
-                        </label>
-                        <input
-                            onChange={(e) => this.handleInputChange(e)}
-                            name="email"
-                            id="email-reset-password"
-                            placeholder="email address"
-                        />
+            <div className="reset-password-side">
+                <div className="reset-password-container">
+                    <h1>reset password</h1>
+                    {/* FIRST DISPLAY *******  FIRST DISPLAY  ******** FIRST DISPLAY */}
+                    {this.state.currentlyDisplayed == 1 && (
+                        <>
+                            {this.state.error ? (
+                                <p className="error-field">
+                                    please, use a valid email address.
+                                </p>
+                            ) : (
+                                <p className="error-field"></p>
+                            )}
+                            <div className="reset-form">
+                                <label htmlFor="email-reset-password">
+                                    enter your email address:
+                                </label>
+                                <input
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    name="email"
+                                    id="email-reset-password"
+                                />
 
-                        <button onClick={(e) => this.handleClick(e)}>
-                            get a code
-                        </button>
-                    </>
-                )}
+                                <button onClick={(e) => this.handleClick(e)}>
+                                    get a code
+                                </button>
+                            </div>
 
-                {/* SECOND DISPLAY ********** SECOND DISPLAY *********** SECOND DISPLAY */}
-                {this.state.currentlyDisplayed == 2 && (
-                    <>
-                        {this.state.error && (
-                            <p className="error">
-                                something went wrong. please, try again.
-                            </p>
-                        )}
+                            <div className="link-container">
+                                <Link className="link login-link" to="/login">
+                                    ⬅ log in
+                                </Link>
+                                <Link className="link" to="/">
+                                    ⬅ to the registration page
+                                </Link>
+                            </div>
+                        </>
+                    )}
 
-                        <label htmlFor="reset-code">
-                            enter the code you received:
-                        </label>
-                        <input
-                            onChange={(e) => this.handleInputChange(e)}
-                            name="code"
-                            id="reset-code"
-                            placeholder="code"
-                        />
+                    {/* SECOND DISPLAY ********** SECOND DISPLAY *********** SECOND DISPLAY */}
+                    {this.state.currentlyDisplayed == 2 && (
+                        <>
+                            {this.state.error ? (
+                                <p className="error-field">
+                                    please, make sure you enetered the correct code.
+                                </p>
+                            ) : (
+                                <p className="error-field"></p>
+                            )}
 
-                        <label htmlFor="new-password">
-                            enter your new password:
-                        </label>
-                        <input
-                            onChange={(e) => this.handleInputChange(e)}
-                            name="password"
-                            id="new-password"
-                            placeholder="new-password"
-                        />
+                            <div className="reset-form">
+                                <label htmlFor="reset-code">
+                                    enter the code you received on your email address:
+                                </label>
+                                <input
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    name="code"
+                                    id="reset-code"
+                                />
 
-                        <button onClick={(e) => this.handleClickOnReset(e)}>
-                            reset password
-                        </button>
-                    </>
-                )}
+                                <label htmlFor="new-password">
+                                    enter your new password:
+                                </label>
+                                <input
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    name="password"
+                                    id="new-password"
+                                />
 
-                {this.state.currentlyDisplayed == 3 && (
-                    <>
-                        <h1>your password was successfully reset!</h1>
-                        <Link to="/login">click here to log in with the new password</Link>
-                    </>
-                )}
+                                <button
+                                    onClick={(e) => this.handleClickOnReset(e)}
+                                >
+                                    reset password
+                                </button>
+                            </div>
+                            <div className="link-container">
+                                <Link className="link login-link" to="/login">
+                                    ⬅ log in
+                                </Link>
+                                <Link className="link" to="/">
+                                    ⬅ to the registration page
+                                </Link>
+                            </div>
+                        </>
+                    )}
+
+                    {this.state.currentlyDisplayed == 3 && (
+                        <>
+                            <h1>your password was successfully reset!</h1>
+                            <div className="link-container">
+                                <Link className="link" to="/login">
+                                    log in with the new password ➡
+                                </Link> 
+                            </div>
+                            
+                        </>
+                    )}
+                </div>
             </div>
         );
         

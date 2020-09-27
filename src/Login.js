@@ -37,34 +37,47 @@ export default class Login extends React.Component {
 
     render() {
         return (
-            <>
-                <h3>log in</h3>
+            <div className="login-side">
+                <div className="login-container">
+                    <h1>log in</h1>
 
-                {this.state.error && (
-                    <p className="error">
-                        something went wrong. please, try again.
-                    </p>
-                )}
+                    {this.state.error ? (
+                        <p className="error-field">
+                            something went wrong. please, try again.
+                        </p>
+                    ) : (
+                        <p className="error-field"></p>
+                    )}
 
-                <label htmlFor="email">email address: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="email"
-                    placeholder="email address"
-                />
+                    <div className="login-form">
+                        <label htmlFor="email-login">email address: </label>
+                        <input
+                            onChange={(e) => this.handleInputChange(e)}
+                            name="email"
+                            id="email-login"
+                        />
 
-                <label htmlFor="password">password: </label>
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    name="password"
-                    placeholder="password"
-                />
+                        <label htmlFor="password-login">password: </label>
+                        <input
+                            onChange={(e) => this.handleInputChange(e)}
+                            name="password"
+                            id="password-login"
+                        />
 
-                <button onClick={(e) => this.handleClick(e)}>log in</button>
+                        <button onClick={(e) => this.handleClick(e)}>
+                            log in
+                        </button>
+                    </div>
 
-                <Link to="/">to the registration page</Link>
-                <Link to="/password/reset/start">click here to reset your password</Link>
-            </>
+                    <div className="link-container">
+                        <Link className="link password-link" to="/password/reset/start">
+                            reset password
+                        </Link>
+                        <Link className="link" to="/">⬅ to the registration page</Link>
+                    </div>
+
+                </div>
+            </div>
         );
     }
 }
