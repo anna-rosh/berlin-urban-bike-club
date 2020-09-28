@@ -42,14 +42,14 @@ export default class OtherProfile extends React.Component{
 
         return (
             <>
+                <div className="large-profile-pic-container">
+                   <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
+                </div>
+                
                 <h1>
                     {first} {last}
                 </h1>
                 <p>{bio}</p>
-                <img
-                    src={(img_url)}
-                    alt={`${first} ${last}`}
-                />
             </>
         );
 

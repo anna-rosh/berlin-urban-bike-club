@@ -59,7 +59,7 @@ export default class BioEditor extends React.Component {
                    )}
 
                    {this.state.buttonIsVisible && (
-                       <p onClick={(e) => this.showTextarea(e)}>add bio</p>
+                       <p className="add-bio-btn" onClick={(e) => this.showTextarea(e)}>add bio</p>
                    )}
                    {this.state.textareaIsVisible && (
                        <div>
@@ -69,7 +69,7 @@ export default class BioEditor extends React.Component {
                                id="bio-field"
                                name="bio"
                            ></textarea>
-                           <button onClick={(e) => this.saveText(e)}>
+                           <button className="save-bio-btn" onClick={(e) => this.saveText(e)}>
                                save
                            </button>
                        </div>
@@ -88,7 +88,7 @@ export default class BioEditor extends React.Component {
                     {this.state.buttonIsVisible && (
                         <>
                         <p>{this.props.bio}</p>
-                        <p onClick={(e) => this.showTextarea(e)}>update bio</p>
+                        <p className="edit-bio-btn" onClick={(e) => this.showTextarea(e)}>edit bio</p>
                         </>
                     )}
 
@@ -101,7 +101,7 @@ export default class BioEditor extends React.Component {
                                     name="bio"
                                     defaultValue={this.props.bio}
                                 ></textarea>
-                                <button onClick={(e) => this.saveText(e)}>
+                                <button className="save-bio-btn" onClick={(e) => this.saveText(e)}>
                                     save changes
                                 </button>
                             </div>
