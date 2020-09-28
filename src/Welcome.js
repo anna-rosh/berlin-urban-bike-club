@@ -11,8 +11,10 @@ export default function Welcome() {
                 <div className="welcome-container">
                    <h1 id="welcome-title">welcome to</h1>
                     <img id="logo-large" src="/img/bicycle.png" />
-                    <h1 id="bubc-title">berlin urban bike club</h1>
-                    <h2>social network for berliners on bike</h2> 
+                    <div className="network-title-container">
+                        <h1 id="bubc-title">berlin urban bike club</h1>
+                        <h2>social network for berliners on bike</h2>
+                    </div>  
                 </div>
             </div>
             <HashRouter>

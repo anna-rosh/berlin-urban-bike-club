@@ -80,3 +80,12 @@ module.exports.updateBio = (bio, id) => {
         [bio, id]
     );
 };
+
+module.exports.getAllUsersButTheCurrent = (currUserId) => {
+    return db.query(
+        `SELECT id AS other_user_id, first, last, img_url
+        FROM users
+        WHERE id <> $1`,
+        [currUserId]
+    );
+};

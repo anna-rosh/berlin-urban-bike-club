@@ -230,6 +230,41 @@ app.post("/update-bio", async function(req, res) {
 
 });
 
+app.get('/api/user/:id', async function(req, res) {
+
+    try {
+        const { rows } = await db.getUserById(req.params.id);
+
+        if (!rows[0]) {
+            res.json({ error: true });
+        } else {
+            res.json({
+                ...rows[0],
+                currUserId: req.session.userId
+            });  
+        }
+
+    } catch (err) {
+        console.log('err in getUserById in GET /user/id: ', err);
+        res.json({ error: true });
+    }
+
+});
+
+// app.get('/all-users', async function(req, res) {
+
+//     try {
+//         // get the information about all the users but not of the current user
+//         const { rows } = await db.getAllUsersButTheCurrent(req.session.userId);
+//         res.json(rows);
+
+
+//     } catch (err) {
+//         console.log('err in getAllUsers: ', err);
+//     }
+
+// });
+
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
 app.get('*', function(req, res) { 
     if (!req.session.userId) {
