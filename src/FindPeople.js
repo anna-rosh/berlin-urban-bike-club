@@ -1,4 +1,3 @@
-import { async } from 'crypto-random-string';
 import React, { useState, useEffect } from 'react';
 import axios from './axios';
 
@@ -7,31 +6,24 @@ export default function FindPeople() {
     const [users, setUsers] = useState([]);
 
     useEffect(() => {
+        let abort;
         (async () => {
             try {
-                const { data } = await axios.get('/find-users');
-                setUsers(data);
+                const { data } = await axios.get(searchInput ? `/find-users/${searchInput}` : '/find-users');
+                if (!abort) {
+                    setUsers(data); 
+                }
 
-            } catch (err) {
-                console.log('err in axios /find-users: ', err);
-            }
-
-        })();
-    }, []);
-
-    useEffect(() => {
-        (async() => {
-            try {
-                const { data } = await axios.get('/find-users/' + searchInput);
-                console.log('data: ', data);
-                setUsers(data);
-                
             } catch (err) {
                 console.log('err in axios /find-users/input: ', err);
             }
 
-        })();
+            return () => {
+                abort = true;
+            };
 
+        })();
+        
     }, [searchInput]);
 
 
@@ -58,9 +50,9 @@ export default function FindPeople() {
             )}
 
             <div className="results-container">
-                {users.map((user, i) => {
+                {users.map((user) => {
                     return (
-                        <div className="result" key={i}>
+                        <div className="result" key={user.id}>
                             <div className="search-user-profile-pic-container">
                                 <img
                                     className="profile-pic"

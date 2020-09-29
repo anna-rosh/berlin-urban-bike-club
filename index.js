@@ -255,7 +255,7 @@ app.get('/api/user/:id', async (req, res) => {
 app.get('/find-users', async (req, res) => {
     // get three most resent users (id, first, last, img_url)
     try {
-        const { rows } = await db.getNewUsers();
+        const { rows } = await db.getNewUsers(req.session.userId);
         res.json(rows);
 
     } catch (err) {
@@ -266,8 +266,9 @@ app.get('/find-users', async (req, res) => {
 
 // show the users usign user search input
 app.get('/find-users/:input', async (req, res) => {
+
     try {
-        const { rows } = await db.getMatchingUsers(req.params.input);
+        const { rows } = await db.getMatchingUsers(req.params.input, req.session.userId);
         res.json(rows);
         
     } catch (err) {

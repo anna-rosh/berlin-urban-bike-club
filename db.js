@@ -81,27 +81,22 @@ module.exports.updateBio = (bio, id) => {
     );
 };
 
-module.exports.getAllUsersButTheCurrent = (currUserId) => {
+module.exports.getNewUsers = (currUserId) => {
     return db.query(
-        `SELECT id AS other_user_id, first, last, img_url
-        FROM users
-        WHERE id <> $1`,
+        `SELECT id, img_url, first, last FROM users
+        WHERE id <> $1
+        ORDER BY id DESC LIMIT 3`,
         [currUserId]
     );
 };
 
-module.exports.getNewUsers = () => {
-    return db.query(
-        `SELECT id, img_url, first, last FROM users
-        ORDER BY id DESC LIMIT 3`
-    );
-};
-
-module.exports.getMatchingUsers = (input) => {
+module.exports.getMatchingUsers = (input, currUserId) => {
     return db.query(
         `SELECT id, img_url, first, last
         FROM users
-        WHERE first ILIKE $1`,
-        [input + '%']
+        WHERE first ILIKE $1
+        AND id <> $2
+        LIMIT 10`,
+        [input + '%', currUserId]
     );
 };
