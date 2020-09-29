@@ -20,7 +20,9 @@ test("Shows the 'edit bio' button if the passed bio value is truthy", () => {
 });
 
 ////////////////// TEST 3 ////////////////////
-test("A textarea and the 'save' btn are shown when 'add bio' or 'edit bio' are cliked", () => {
+
+test("A textarea and the 'save' btn are shown when 'add bio' or 'edit bio' are cliked", async () => {
+
     const { container } = render(<BioEditor bio={null} />);
 
     expect(container.innerHTML).toContain('add bio');
@@ -29,6 +31,31 @@ test("A textarea and the 'save' btn are shown when 'add bio' or 'edit bio' are c
 
     expect(container.innerHTML).toContain('textarea');
     expect(container.innerHTML).toContain('save-bio-btn');
+
 });
 
-///////////////// TESTS 4 & 5 ////////////////
+///////////////// TEST 4 ////////////////
+jest.mock('./axios');
+
+axios.post.mockResolvedValue({
+    data: {
+        bio: "some text here",
+    },
+});
+
+const setBio = jest.fn();
+
+test("Clicking the 'save' button causes a server request", async () => {
+    const { container } = render(<BioEditor bio={null} setBio={setBio} />);
+
+    fireEvent.click(container.querySelector('.add-bio-btn'));
+    
+
+    fireEvent.click(container.querySelector(".save-bio-btn"));
+
+    expect(axios.post.mock.calls.length).toBe(1);
+
+});
+
+
+////////////////// TEST 5 ///////////////

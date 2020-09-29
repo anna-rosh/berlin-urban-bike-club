@@ -30,7 +30,6 @@ export default class BioEditor extends React.Component {
         const newBio = {
             bio: this.state.bio
         }
-
         axios.post('/update-bio', newBio)
             .then(({ data }) => {
                 if (data.error) {
@@ -53,7 +52,7 @@ export default class BioEditor extends React.Component {
 
         if (!this.props.bio) {
            return (
-               <>
+               <div className="bio-container">
                    {this.state.error && (
                        <p className="error">something went wrong. please, try again</p>
                    )}
@@ -62,7 +61,7 @@ export default class BioEditor extends React.Component {
                        <p className="add-bio-btn" onClick={(e) => this.showTextarea(e)}>add bio</p>
                    )}
                    {this.state.textareaIsVisible && (
-                       <div>
+                       <div className="bio-editor">
                            <label htmlFor="bio-field">bio</label>
                            <textarea
                                onChange={(e) => this.handleInputChange(e)}
@@ -74,24 +73,24 @@ export default class BioEditor extends React.Component {
                            </button>
                        </div>
                    )}
-               </>
+               </div>
            );
 
         } 
         else {
             return (
-                <>
+                <div className="bio-container">
                     {this.state.error && (
                        <p className="error">something went wrong. please, try again</p>
                     )}
 
                     {this.state.buttonIsVisible && (
                         <>
-                        <p>{this.props.bio}</p>
+                        <p className="bio">{this.props.bio}</p>
                         <p className="edit-bio-btn" onClick={(e) => this.showTextarea(e)}>edit bio</p>
                         </>
                     )}
-
+                    
                     {this.state.textareaIsVisible && (
                             <div>
                                 <label htmlFor="bio-field">bio</label>
@@ -106,7 +105,7 @@ export default class BioEditor extends React.Component {
                                 </button>
                             </div>
                     )}
-                </>
+                </div>
             );
         }
     }

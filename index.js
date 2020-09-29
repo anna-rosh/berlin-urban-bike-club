@@ -186,7 +186,7 @@ app.post('/password/reset/verify', (req, res) => {
 
 });
 
-app.get('/user', async function(req, res) {
+app.get('/user', async (req, res) => {
 
     try {
         const { rows } = await db.getUserById(req.session.userId);
@@ -197,7 +197,7 @@ app.get('/user', async function(req, res) {
 
 });
 
-app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async function(req, res) {
+app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async (req, res) => {
 
     if (!req.file) {
         res.json({ error: true });
@@ -217,7 +217,7 @@ app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async fu
 
 });
 
-app.post("/update-bio", async function(req, res) {
+app.post("/update-bio", async (req, res) => {
     // getting { bio: somevalue } from the client side in req.body
     try {
         const { rows } = await db.updateBio(req.body.bio, req.session.userId);
@@ -230,7 +230,7 @@ app.post("/update-bio", async function(req, res) {
 
 });
 
-app.get('/api/user/:id', async function(req, res) {
+app.get('/api/user/:id', async (req, res) => {
 
     try {
         const { rows } = await db.getUserById(req.params.id);
@@ -251,19 +251,30 @@ app.get('/api/user/:id', async function(req, res) {
 
 });
 
-// app.get('/all-users', async function(req, res) {
+// default: show three most resent users
+app.get('/find-users', async (req, res) => {
+    // get three most resent users (id, first, last, img_url)
+    try {
+        const { rows } = await db.getNewUsers();
+        res.json(rows);
 
-//     try {
-//         // get the information about all the users but not of the current user
-//         const { rows } = await db.getAllUsersButTheCurrent(req.session.userId);
-//         res.json(rows);
+    } catch (err) {
+        console.log('err in getNewUsers: ', err);
+    }
+    
+});
 
+// show the users usign user search input
+app.get('/find-users/:input', async (req, res) => {
+    try {
+        const { rows } = await db.getMatchingUsers(req.params.input);
+        res.json(rows);
+        
+    } catch (err) {
+        console.log('err in getMatchingUsers: ', err);
+    }
 
-//     } catch (err) {
-//         console.log('err in getAllUsers: ', err);
-//     }
-
-// });
+});
 
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
 app.get('*', function(req, res) { 

@@ -89,3 +89,19 @@ module.exports.getAllUsersButTheCurrent = (currUserId) => {
         [currUserId]
     );
 };
+
+module.exports.getNewUsers = () => {
+    return db.query(
+        `SELECT id, img_url, first, last FROM users
+        ORDER BY id DESC LIMIT 3`
+    );
+};
+
+module.exports.getMatchingUsers = (input) => {
+    return db.query(
+        `SELECT id, img_url, first, last
+        FROM users
+        WHERE first ILIKE $1`,
+        [input + '%']
+    );
+};
