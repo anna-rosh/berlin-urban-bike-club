@@ -100,3 +100,39 @@ module.exports.getMatchingUsers = (input, currUserId) => {
         [input + '%', currUserId]
     );
 };
+
+module.exports.checkFriendshipStatus = (currProfileId, currUserId) => {
+    return db.query(
+        `SELECT * FROM friendships
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)`,
+        [currProfileId, currUserId]
+    );
+};
+
+module.exports.addFriendship = (currProfileId, currUserId) => {
+    return db.query(
+        `INSERT INTO friendships (recipient_id, sender_id)
+        VALUES ($1, $2)`,
+        [currProfileId, currUserId]
+    );
+};
+
+module.exports.deleteFriendship = (currProfileId, currUserId) => {
+    return db.query(
+        `DELETE FROM friendships
+        WHERE (recipient_id = $1 AND sender_id = $2)
+        OR (recipient_id = $2 AND sender_id = $1)`,
+        [currProfileId, currUserId]
+    );
+};
+
+module.exports.acceptFriendship = (currUserId, currProfileId) => {
+    return db.query(
+        `UPDATE friendships
+        SET accepted = true
+        WHERE recipient_id = $1
+        AND sender_id = $2`,
+        [currUserId, currProfileId]
+    );
+};

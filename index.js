@@ -277,6 +277,70 @@ app.get('/find-users/:input', async (req, res) => {
 
 });
 
+app.get("/initial-friendship-status/:currProfileId", async (req, res) => {
+    try {
+        const { rows } = await db.checkFriendshipStatus(req.params.currProfileId, req.session.userId);
+        // if the is no relationships between the recipient and the sender of the
+        // friendship request make possible for the logged in user to send a reqest
+        if (rows.length == 0) {
+            res.json({ buttonText: 'send friend request' });
+        
+        } else {
+            // if the is some relationship => check if the request was accepted:
+            // yes => make it possible for the logged in user to end the friendship
+            if (rows[0].accepted) {
+                res.json({ buttonText: "end friendship" });
+
+            } else {
+                // if the recipient is NOT the logged in user => make is possible
+                // for the logged in user to cancel the request she sent to the recipient
+                if (rows[0].recipient_id == req.params.currProfileId) {
+                    res.json({ buttonText: "cancel friend request" });
+                } else {
+                    // if the recipient is the logged in user => make it possible
+                    // for her to accept the friendship request
+                    res.json({ buttonText: "accept friend request" });
+                }
+            }
+        }
+
+    } catch (err) {
+        console.log("err in checkFriendshipStatus GET /initial-friendship-status:", err);
+    }
+});
+
+app.post("/send-friend-request/:currProfileId", async (req, res) => {
+    try {
+        await db.addFriendship(req.params.currProfileId, req.session.userId);
+        res.json({ buttonText: 'cancel friend request' });
+
+    } catch (err) {
+        console.log('err in addFriendship: ', err);
+    }
+
+});
+
+app.post("/end-friendship/:currProfileId", async (req, res) => {
+    try {
+        await db.deleteFriendship(req.params.currProfileId, req.session.userId);
+        res.json({ buttonText: 'send friend request' });
+
+    } catch (err) {
+        console.log('err in deleteFriendship: ', err);
+    }
+
+});
+
+app.post("/accept-friend-request/:currProfileId", async (req, res) => {
+    try {
+        await db.acceptFriendship(req.session.userId, req.params.currProfileId);
+        res.json({ buttonText: 'end friendship' });
+        
+    } catch (err) {
+        console.log('err in acceptFriendship: ', err);
+    }
+});
+
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
 app.get('*', function(req, res) { 
     if (!req.session.userId) {

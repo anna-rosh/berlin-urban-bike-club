@@ -1,12 +1,11 @@
 import React from "react";
 import axios from "./axios";
+import FriendButton from "./FriendButton";
 
 export default class OtherProfile extends React.Component{
     constructor(props) {
         super(props);
-        this.state = {
-            // otherUsers: []
-        };
+        this.state = {};
     }
 
     componentDidMount() {
@@ -20,17 +19,6 @@ export default class OtherProfile extends React.Component{
                 }
             })
             .catch(err => console.log('err in GET /api/user/id', err));
-
-        // axios.get('/all-users')
-        //     .then(({ data }) => {
-        //         for (let i = 0; i < data.length; i++) {
-        //             this.state.otherUsers.push(data[i]);
-        //         }
-
-        //         console.log("this.state.otherUsers: ", this.state.otherUsers);
-
-        //     })
-        //     .catch(err => console.log('err in GET /all-users: ', err));
     }
 
     render() {
@@ -50,6 +38,7 @@ export default class OtherProfile extends React.Component{
                     {first} {last}
                 </h1>
                 <p>{bio}</p>
+                <FriendButton currProfileId={this.state.id} />
             </>
         );
 
