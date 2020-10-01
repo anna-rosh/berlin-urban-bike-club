@@ -22,7 +22,7 @@ export default class OtherProfile extends React.Component{
     }
 
     render() {
-        const { first, last, bio, img_url, currUserId, id, otherUsers } = this.state;
+        const { first, last, bio, img_url } = this.state;
 
         if (!first) {
             return 'Loading...';

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
 import axios from './axios';
 
 export default function FindPeople() {
@@ -49,10 +50,10 @@ export default function FindPeople() {
                 <p className="error-field"></p>
             )}
 
-            <div className="results-container">
+            <div className="search-user-results-container">
                 {users.map((user) => {
                     return (
-                        <div className="result" key={user.id}>
+                        <Link className="search-user-result" key={user.id} to={`/user/${user.id}`}>
                             <div className="search-user-profile-pic-container">
                                 <img
                                     className="profile-pic"
@@ -62,7 +63,7 @@ export default function FindPeople() {
                             <h2>
                                 {user.first} {user.last}
                             </h2>
-                        </div>
+                        </Link>
                     );
                 })}
             </div>

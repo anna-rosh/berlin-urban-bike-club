@@ -289,19 +289,77 @@
     }
 }
 
-/* ////////////// OTHER STUFF //////////////// */
+/* APP //////////////////// APP //////////////////// APP ////////////// APP /////////// */
 
+/* APP HEADER *************** APP HEADER ******************* APP HEADER ************** APP HEADER */
 .app-header {
-    border-bottom: 2px solid black;
+    border-bottom: 1px solid rgb(121, 121, 121);
+    height: 65px;
+}
+
+.app-header .header-content {
+    max-width: 1000px;
+    height: 100%;
+    margin: 0 auto;
+    padding: 0 1%;
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+
+.app-header .logo-title-container {
+    display: flex;
+    align-items: center;
+}
+
+#logo {
+    width: 60px;
+    margin-right: 15px;
+}
+
+.app-header h3 {
+    padding: 0 3px;
+    font-size: 25px;
+    letter-spacing: 1px;
+    align-self: flex-end;
+}
+
+.app-header .app-header-nav {
+    display: flex;
+    align-items: center;
+}
+
+.app-header .search-users-link {
+    display: flex;
+    align-items: center;
+    margin-right: 7px;
+}
+
+.app-header .lens-img {
+    width: 40px;
+}
+
+.app-header .profile-pic-outline {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: border 0.3s;
+}
+
+.app-header .profile-pic-outline:hover {
+    border: 2px solid rgb(121, 121, 121);
 }
 
 .app-header .profile-pic-container {
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     overflow: hidden;
+    cursor: pointer;
 }
 
 .profile-pic {
@@ -310,19 +368,27 @@
     object-fit: cover;
 }
 
-
-#logo {
-    width: 60px;
-    height: 40px;
+/* ANY PROFILE ********************* ANY PROFILE ************** ANY PROFILE ********* */
+.app-profile-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px 1%;
 }
-
 
 .large-profile-pic-container {
     width: 150px;
     height: 150px;
     border-radius: 50%;
     overflow: hidden;
+    cursor: pointer;
 }
+
+/* ////////////// OTHER STUFF //////////////// */
+
+
+
+
+
 
 .search-container .search-user-profile-pic-container {
     width: 100px;
@@ -331,7 +397,7 @@
     overflow: hidden;
 }
 
-.search-container .result {
+.search-container .search-user-result {
     display: flex;
     align-items: center;
 }

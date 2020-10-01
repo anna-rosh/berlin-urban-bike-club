@@ -35,70 +35,68 @@ export default class App extends React.Component {
                 <>
                     {/* header is an unchanged element throughout the app (logged in) */}
                     <header className="app-header">
-                        <img id="logo" src="/img/bicycle.png" alt="logo" />
-                        <p>berlin urban bike club</p>
-                        <Link to="/users">find people</Link>
-                        <div className="profile-pic-container">
-                            <ProfilePic
-                                first={this.state.first}
-                                last={this.state.last}
-                                imageUrl={this.state.img_url}
-                                clickHandler={() =>
-                                    this.setState({ uploaderIsVisible: true })
-                                }
-                            />
+                        <div className="header-content">
+                            <div className="logo-title-container">
+                                <img id="logo" src="/img/bicycle.png" />
+                                <h3>berlin urban bike club</h3>
+                            </div>
+                            
+                            <div className="app-header-nav">
+                                <Link className="search-users-link" to="/users">
+                                    <img className="lens-img" src="/img/lens.png" />
+                                </Link>
+                                <div className="profile-pic-outline">
+                                    <div className="profile-pic-container">
+                                        <ProfilePic
+                                            first={this.state.first}
+                                            last={this.state.last}
+                                            imageUrl={this.state.img_url}
+                                            clickHandler={() =>
+                                                this.setState({
+                                                    uploaderIsVisible: true,
+                                                })
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                            
                         </div>
                     </header>
 
-                        <div className="app-profile-container">
-                            <Route
-                                exact
-                                path="/"
-                                render={() => (
-                                    <Profile
-                                        first={this.state.first}
-                                        last={this.state.last}
-                                        imageUrl={this.state.img_url}
-                                        bio={this.state.bio}
-                                        setBio={(newBio) =>
-                                            this.setState({ bio: newBio })
-                                        }
-                                        clickHandler={() =>
-                                            this.setState({
-                                                uploaderIsVisible: true,
-                                            })
-                                        }
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/user/:id"
-                                render={(props) => (
-                                    <OtherProfile
-                                        key={props.match.url}
-                                        match={props.match}
-                                        history={props.history}
-                                    />
-                                )}
-                            />
-                            <Route
-                                path="/users"
-                                render={() => <FindPeople />}
-                            />
-                        </div>
-
-                    {/* <div className="app-profile-container">
-                    <Profile
-                        first={this.state.first}
-                        last={this.state.last}
-                        imageUrl={this.state.img_url}
-                        bio={this.state.bio}
-                        setBio={(newBio) => this.setState({ bio: newBio })}
-                        clickHandler={() =>
-                            this.setState({ uploaderIsVisible: true })
-                        }
-                    />
-                </div> */}
+                    <div className="app-profile-container">
+                        <Route
+                            exact
+                            path="/"
+                            render={() => (
+                                <Profile
+                                    first={this.state.first}
+                                    last={this.state.last}
+                                    imageUrl={this.state.img_url}
+                                    bio={this.state.bio}
+                                    setBio={(newBio) =>
+                                        this.setState({ bio: newBio })
+                                    }
+                                    clickHandler={() =>
+                                        this.setState({
+                                            uploaderIsVisible: true,
+                                        })
+                                    }
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/user/:id"
+                            render={(props) => (
+                                <OtherProfile
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
+                        <Route path="/users" render={() => <FindPeople />} />
+                    </div>
 
                     {this.state.uploaderIsVisible && (
                         <Uploader
