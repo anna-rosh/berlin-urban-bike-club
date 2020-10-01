@@ -336,14 +336,16 @@
 }
 
 .app-header .lens-img {
-    width: 40px;
+    width: 35px;
 }
 
-.app-header .lens-img:hover {
+.app-header .lens-img:hover,
+.app-profile-container .bio-container .add-bio-btn:hover {
     opacity: 0.7;
 }
 
-.app-header .lens-img:active {
+.app-header .lens-img:active,
+.app-profile-container .bio-container .add-bio-btn:active {
     opacity: 0.5;
 }
 
@@ -367,8 +369,8 @@
 }
 
 .app-header .profile-pic-container {
-    width: 39px;
-    height: 39px;
+    width: 35px;
+    height: 35px;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
@@ -383,16 +385,59 @@
 /* ANY PROFILE ********************* ANY PROFILE ************** ANY PROFILE ********* */
 .app-profile-container {
     max-width: 1000px;
+    height: 262px;
     margin: 0 auto;
     padding: 30px 1%;
+    display: grid;
+    grid-template-columns: 1fr 3fr;
+    border-bottom: 1px solid rgb(207, 204, 204);
 }
 
 .large-profile-pic-container {
-    width: 150px;
-    height: 150px;
+    width: 170px;
+    height: 170px;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
+    justify-self: center;
+}
+
+.app-profile-container .profile-text-container {
+    font-size: 17px;
+}
+
+.app-profile-container .profile-text-container h1 {
+    font-size: 2.7vw;
+    margin-bottom: 15px;
+}
+
+.app-profile-container .bio-container .add-bio-btn {
+    text-decoration: underline;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.app-profile-container .bio-container .bio-editor {
+    max-width: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#bio-field {
+    margin-bottom: 5px;
+    border: 1px solid rgb(121, 121, 121);
+    height: 100px;
+}
+
+.app-profile-container .bio-container .bio-editor button {
+    width: 100px;
+    letter-spacing: 1px;
+    padding: 0;
+    background-color: #fff;
+    border: none;
+    font-size: inherit;
+    cursor: pointer;
+    align-self: center;
 }
 
 /* ////////////// OTHER STUFF //////////////// */

@@ -62,7 +62,7 @@ export default class BioEditor extends React.Component {
                    )}
                    {this.state.textareaIsVisible && (
                        <div className="bio-editor">
-                           <label htmlFor="bio-field">bio</label>
+                           <label htmlFor="bio-field">tell about yourself</label>
                            <textarea
                                onChange={(e) => this.handleInputChange(e)}
                                id="bio-field"
@@ -92,7 +92,7 @@ export default class BioEditor extends React.Component {
                     )}
                     
                     {this.state.textareaIsVisible && (
-                            <div>
+                            <div className="bio-editor">
                                 <label htmlFor="bio-field">bio</label>
                                 <textarea
                                     onChange={(e) => this.handleInputChange(e)}

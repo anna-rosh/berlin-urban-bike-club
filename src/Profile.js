@@ -13,13 +13,15 @@ export default function({first, last, imageUrl, clickHandler, bio, setBio}) {
                     clickHandler={clickHandler}
                 />
             </div>
-            
-            <h1>{first} {last}</h1>
 
-            <BioEditor
-                bio={bio}
-                setBio={setBio}
-            />
+            <div className="profile-text-container">
+                <h1>{first} {last}</h1>
+
+                <BioEditor
+                    bio={bio}
+                    setBio={setBio}
+                /> 
+            </div>
         </>
     );
 }
