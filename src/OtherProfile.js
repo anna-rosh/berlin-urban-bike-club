@@ -29,7 +29,7 @@ export default class OtherProfile extends React.Component{
         }
 
         return (
-            <>
+            <div className="profile-container">
                 <div className="large-profile-pic-container">
                    <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
                 </div>
@@ -39,7 +39,7 @@ export default class OtherProfile extends React.Component{
                 </h1>
                 <p>{bio}</p>
                 <FriendButton currProfileId={this.state.id} />
-            </>
+            </div>
         );
 
     }

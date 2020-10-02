@@ -136,3 +136,21 @@ module.exports.acceptFriendship = (currUserId, currProfileId) => {
         [currUserId, currProfileId]
     );
 };
+
+module.exports.getFriendsWannabes = (currUserId) => {
+    return db.query(
+        `SELECT users.id, users.first, users.last, users.img_url, friendships.accepted
+        FROM friendships
+        JOIN users
+        ON (friendships.accepted = false 
+            AND friendships.recipient_id = $1 
+            AND friendships.sender_id = users.id)
+        OR (friendships.accepted = true 
+            AND friendships.recipient_id = $1 
+            AND friendships.sender_id = users.id)
+        OR (friendships.accepted = true 
+            AND friendships.sender_id = $1
+            AND friendships.recipient_id = users.id)`,
+        [currUserId]
+    );
+};

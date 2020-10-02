@@ -341,6 +341,15 @@ app.post("/accept-friend-request/:currProfileId", async (req, res) => {
     }
 });
 
+app.get("/wannabes-friends", async (req, res) => {
+    try {
+        const { rows } = await db.getFriendsWannabes(req.session.userId);
+        res.json(rows);
+    } catch (err) {
+        console.log('err in getFriendsWannabes', err);
+    }
+});
+
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
 app.get('*', function(req, res) { 
     if (!req.session.userId) {

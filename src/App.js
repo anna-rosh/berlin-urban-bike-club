@@ -5,7 +5,9 @@ import Profile from "./Profile";
 import ProfilePic from "./ProfilePic";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
-import { BrowserRouter, Route, Link } from 'react-router-dom'; 
+import Friends from "./Friends";
+import { BrowserRouter, Route, Link } from 'react-router-dom';
+
 
 export default class App extends React.Component {
     constructor(props) {
@@ -42,6 +44,11 @@ export default class App extends React.Component {
                             </div>
                             
                             <div className="app-header-nav">
+                                <Link className="friends-link" to="/friends">
+                                    <div className="friends-img-container">
+                                        <img className="friends-img" src="/img/friends.png" />
+                                    </div>
+                                </Link>
                                 <Link className="search-users-link" to="/users">
                                     <img className="lens-img" src="/img/lens.png" />
                                 </Link>
@@ -64,7 +71,7 @@ export default class App extends React.Component {
                         </div>
                     </header>
 
-                    <div className="app-profile-container">
+                    <div className="app-container">
                         <Route
                             exact
                             path="/"
@@ -96,7 +103,9 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route path="/users" render={() => <FindPeople />} />
+                        <Route path="/friends" render={() => <Friends />} />
                     </div>
+                    
 
                     {this.state.uploaderIsVisible && (
                         <Uploader
