@@ -16,6 +16,8 @@ export default class Uploader extends React.Component {
             // in val property but in files property!!!!
             file: e.target.files[0],
         });
+
+        document.querySelector('.upload-btn').innerHTML = '⬆ an image selected';
     }
 
     handleClick(e) {
@@ -47,7 +49,12 @@ export default class Uploader extends React.Component {
         return (
             <div className="uploader-overlay">
                 <div className="uploader-container">
-                    <h3 className="close-uploader" onClick={(e) => this.closeMenu(e)}>x</h3>
+                    <h3
+                        className="close-uploader"
+                        onClick={(e) => this.closeMenu(e)}
+                    >
+                        x
+                    </h3>
                     <h1>menu</h1>
                     <h3>set new profile picture</h3>
                     {this.state.error ? (
@@ -77,9 +84,15 @@ export default class Uploader extends React.Component {
                         </button>
                     </div>
 
-                    <Link to="/" className="menu-link">my profile</Link>
-                    <Link to="/friends" className="menu-link">friends</Link>
-                    <Link to="/users" className="menu-link">find people</Link>
+                    <Link to="/" className="menu-link">
+                        my profile
+                    </Link>
+                    <Link to="/friends" className="menu-link">
+                        friends
+                    </Link>
+                    <Link to="/users" className="menu-link">
+                        find people
+                    </Link>
                 </div>
             </div>
         );

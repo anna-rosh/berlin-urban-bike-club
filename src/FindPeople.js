@@ -34,13 +34,16 @@ export default function FindPeople() {
 
     return (
         <div className="search-container">
-            <label htmlFor="user-search">find friends:</label>
-            <input
-                onChange={handleChange}
-                id="user-search"
-                type="text"
-                name="searchInput"
-            />
+            <div className="search-people-form">
+                <label htmlFor="user-search">find friends:</label>
+                <input
+                    onChange={handleChange}
+                    id="user-search"
+                    type="text"
+                    name="searchInput"
+                /> 
+            </div>
+            
 
             {users.length == 0 ? (
                 <p className="error-field">
@@ -60,6 +63,7 @@ export default function FindPeople() {
                                     src={user.img_url}
                                 />
                             </div>
+
                             <h2>
                                 {user.first} {user.last}
                             </h2>

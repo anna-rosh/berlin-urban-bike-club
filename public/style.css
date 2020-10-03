@@ -322,6 +322,7 @@
     font-size: 25px;
     letter-spacing: 1px;
     align-self: flex-end;
+    white-space: nowrap;
 }
 
 .app-header .app-header-nav {
@@ -329,15 +330,6 @@
     align-items: center;
 }
 
-.app-header .search-users-link {
-    display: flex;
-    align-items: center;
-    margin-right: 10px;
-}
-
-.app-header .lens-img {
-    width: 35px;
-}
 
 .app-header .friends-img-container {
     width: 35px;
@@ -354,35 +346,30 @@
     object-fit: contain;
 }
 
+.app-header .search-users-link {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.app-header .lens-img {
+    width: 35px;
+}
+
 .app-header .lens-img:hover,
+.app-header .friends-img-container:hover,
+.app-header .profile-pic:hover,
 .app-profile-container .bio-container .add-bio-btn:hover,
 .app-profile-container .bio-container .edit-bio-btn:hover {
     opacity: 0.7;
 }
 
 .app-header .lens-img:active,
+.app-header .friends-img-container:active,
+.app-header .profile-pic:active,
 .app-profile-container .bio-container .add-bio-btn:active,
 .app-profile-container .bio-container .edit-bio-btn:active {
     opacity: 0.5;
-}
-
-.app-header .profile-pic-outline {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-    border: 2px solid white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: border 0.3s;
-}
-
-.app-header .profile-pic-outline:hover {
-    border: 2px solid rgb(121, 121, 121);
-}
-
-.app-header .profile-pic-outline:active {
-    border: 2px solid rgba(121, 121, 121, 0.493);
 }
 
 .app-header .profile-pic-container {
@@ -410,21 +397,28 @@
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 3fr;
-    height: 262px;
-    border-bottom: 1px solid rgb(207, 204, 204);
+}
+
+.app-container .profile-pic-section {
+    position: relative;
+    height: 0;
+    padding-top: 100%;
+    position: relative;
 }
 
 .large-profile-pic-container {
-    width: 170px;
-    height: 170px;
+    position: absolute;
+    top: 0;
+    width: 85%;
+    height: 85%;
     border-radius: 50%;
     overflow: hidden;
     cursor: pointer;
-    justify-self: center;
 }
 
 .profile-container .profile-text-container {
     font-size: 17px;
+    position: relative;
 }
 
 .profile-container .profile-text-container h1 {
@@ -432,14 +426,18 @@
     margin-bottom: 10px;
 }
 
+
 .profile-container .bio-container .add-bio-btn {
     text-decoration: underline;
     font-size: 17px;
     cursor: pointer;
 }
 
+
+/* bio edition ******************* bio editor **************** bio editor */
+
 .profile-container .bio-container .bio-editor {
-    max-width: 300px;
+    max-width: 500px;
     display: flex;
     flex-direction: column;
 }
@@ -495,6 +493,28 @@
     cursor: pointer;
 }
 
+/* friend button ******************+ friend button ****************** friend button */
+.profile-container .friend-btn {
+    margin-top: 15px;
+    border: 1px solid rgb(121, 121, 121);
+    padding: 10px 0;
+    width: 85%;
+    background-color: #fff;
+    font-size: 20px;
+    cursor: pointer;
+    transition: opacity 0.3s;
+}
+
+.profile-container .friend-btn:hover,
+.profile-container .friend-btn:focus {
+    outline: none;
+    opacity: 0.7;
+}
+
+.profile-container .friend-btn:active {
+    opacity: 0.5;
+}
+
 /* ********* UPLOADER *********** UPLOADER ******** UPLOADER ************ UPLOADER */
 .uploader-overlay {
     width: 100%;
@@ -506,6 +526,7 @@
     display: flex;
     justify-content: center;
     z-index: 1;
+    animation: 1.2s ease-in-out 0s 1 appear;
 }
 
 .uploader-container {
@@ -521,6 +542,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    animation: 1.2s ease-out 0s 1 slideInFromRight, 1.2s ease-in-out 0s 1 appear;
 }
 
 .uploader-container .close-uploader {
@@ -599,15 +621,75 @@
 .uploader-container .img-upload-container button:hover,
 .uploader-container .img-upload-container button:focus,
 .uploader-container .menu-link:hover,
-.uploader-container .menu-link:focus {
+.uploader-container .menu-link:focus,
+.search-user-results-container .search-user-result h2:hover,
+.search-user-results-container .search-user-result h2:focus {
     outline: none;
     opacity: 0.7;
 }
 
 .uploader-container .upload-btn:active,
 .uploader-container .img-upload-container button:active,
-.uploader-container .menu-link:active {
+.uploader-container .menu-link:active,
+.search-user-results-container .search-user-result h2:active {
     opacity: 0.5;
+}
+
+/* FIND PEOPLE ***************** FIND PEOPLE ***************+ FIND PEOPLE ************* */
+.search-container .search-people-form {
+    display: flex;
+}
+
+.search-container label {
+    font-size: 20px;
+    align-self: center;
+    margin-right: 5px;
+    white-space: nowrap;
+}
+
+.search-container input {
+    width: 500px;
+    font-size: 20px;
+    padding: 5px 10px;
+    height: 40px;
+    border: 1px solid rgb(121, 121, 121);
+    margin-bottom: 20px;
+    transition: border 0.5s;
+    align-self: flex-end;
+    transition: opacity 0.3s;
+}
+
+.search-container input:hover {
+    opacity: 0.5;
+}
+
+.search-container input:focus {
+    outline: none;
+    border: 2px solid rgb(121, 121, 121);
+}
+
+.search-user-results-container .search-user-result {
+    padding: 10px 0;
+    border-bottom: 1px solid rgb(207, 204, 204);
+}
+
+.search-container .search-user-profile-pic-container,
+.friends-profile-pic-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 30px;
+}
+
+.search-container .search-user-result {
+    display: flex;
+    align-items: center;
+}
+
+.search-user-results-container .search-user-result {
+    text-decoration: none;
+    color: black;
 }
 
 
@@ -623,19 +705,4 @@
 .wannabe-container .friends-profile-pic-container,
 .friend-container .friends-profile-pic-container {
     margin-right: 10px;
-}
-
-
-
-.search-container .search-user-profile-pic-container,
-.friends-profile-pic-container {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-}
-
-.search-container .search-user-result {
-    display: flex;
-    align-items: center;
 }

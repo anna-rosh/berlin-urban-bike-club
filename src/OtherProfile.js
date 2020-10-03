@@ -30,14 +30,18 @@ export default class OtherProfile extends React.Component{
 
         return (
             <div className="profile-container">
-                <div className="large-profile-pic-container">
-                   <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
+                <div className="profile-pic-section">
+                    <div className="large-profile-pic-container">
+                        <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
+                    </div>
                 </div>
                 
-                <h1>
-                    {first} {last}
-                </h1>
-                <p>{bio}</p>
+                <div className="profile-text-container">
+                    <h1>
+                        {first} {last}
+                    </h1>
+                    <p>{bio}</p>
+                </div>
                 <FriendButton currProfileId={this.state.id} />
             </div>
         );

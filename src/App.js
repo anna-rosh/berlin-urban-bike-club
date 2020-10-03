@@ -52,19 +52,17 @@ export default class App extends React.Component {
                                 <Link className="search-users-link" to="/users">
                                     <img className="lens-img" src="/img/lens.png" />
                                 </Link>
-                                <div className="profile-pic-outline">
-                                    <div className="profile-pic-container">
-                                        <ProfilePic
-                                            first={this.state.first}
-                                            last={this.state.last}
-                                            imageUrl={this.state.img_url}
-                                            clickHandler={() =>
-                                                this.setState({
-                                                    uploaderIsVisible: true,
-                                                })
-                                            }
-                                        />
-                                    </div>
+                                <div className="profile-pic-container">
+                                    <ProfilePic
+                                        first={this.state.first}
+                                        last={this.state.last}
+                                        imageUrl={this.state.img_url}
+                                        clickHandler={() =>
+                                            this.setState({
+                                                uploaderIsVisible: true,
+                                            })
+                                        }
+                                    />
                                 </div>
                             </div>
                             
