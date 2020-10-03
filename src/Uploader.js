@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "./axios";
+import { Link } from 'react-router-dom';
 
 export default class Uploader extends React.Component {
     constructor(props) {
@@ -37,24 +38,49 @@ export default class Uploader extends React.Component {
             });
     }
 
+    closeMenu(e) {
+        e.preventDefault();
+        this.props.closeUploader();
+    }
+
     render() {
         return (
-            <div>
-                <p>choose an image to set your new profile picture</p>
-                {this.state.error && (
-                    <p className="error">
-                        no image chosen
-                    </p>
-                )}
+            <div className="uploader-overlay">
+                <div className="uploader-container">
+                    <h3 className="close-uploader" onClick={(e) => this.closeMenu(e)}>x</h3>
+                    <h1>menu</h1>
+                    <h3>set new profile picture</h3>
+                    {this.state.error ? (
+                        <p className="error-field">
+                            something went wrong. please, try again.
+                        </p>
+                    ) : (
+                        <p className="error-field"></p>
+                    )}
 
-                <input
-                    onChange={(e) => this.handleInputChange(e)}
-                    type="file"
-                    accept="image/*"
-                    name="file"
-                />
+                    <div className="img-upload-container">
+                        <input
+                            id="profile-pic-input"
+                            onChange={(e) => this.handleInputChange(e)}
+                            type="file"
+                            accept="image/*"
+                            name="file"
+                        />
+                        <label
+                            htmlFor="profile-pic-input"
+                            className="upload-btn"
+                        >
+                            ⬆ choose an image
+                        </label>
+                        <button onClick={(e) => this.handleClick(e)}>
+                            submit
+                        </button>
+                    </div>
 
-                <button onClick={(e) => this.handleClick(e)}>submit</button>
+                    <Link to="/" className="menu-link">my profile</Link>
+                    <Link to="/friends" className="menu-link">friends</Link>
+                    <Link to="/users" className="menu-link">find people</Link>
+                </div>
             </div>
         );
     }

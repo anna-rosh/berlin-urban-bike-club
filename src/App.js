@@ -115,6 +115,11 @@ export default class App extends React.Component {
                                     uploaderIsVisible: false,
                                 });
                             }}
+                            closeUploader={() => {
+                                this.setState({
+                                    uploaderIsVisible: false
+                                })
+                            }}
                         />
                     )}
                 </>

@@ -98,8 +98,7 @@ export default class BioEditor extends React.Component {
                                     onChange={(e) => this.handleInputChange(e)}
                                     id="bio-field"
                                     name="bio"
-                                    defaultValue={this.props.bio}
-                                ></textarea>
+                                >{this.props.bio}</textarea>
                                 <button className="save-bio-btn" onClick={(e) => this.saveText(e)}>
                                     save changes
                                 </button>
