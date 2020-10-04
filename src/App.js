@@ -101,7 +101,13 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route path="/users" render={() => <FindPeople />} />
-                        <Route path="/friends" render={() => <Friends />} />
+                        <Route path="/friends" render={(props) => (
+                            <Friends 
+                                key={props.match.url}
+                                match={props.match}
+                                history={props.history}
+                            />
+                        )} />
                     </div>
                     
 

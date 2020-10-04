@@ -1,3 +1,5 @@
+import { act } from "react-test-renderer";
+
 export default function(state = {}, action) {
     if (action.type == 'RECEIVE_FRIENDS_WANNABES') {
         state = Object.assign({}, state, {
@@ -19,6 +21,13 @@ export default function(state = {}, action) {
                     return user;
                 }
             })
+        };
+    }
+
+    if (action.type == "REJECT_REQUEST") {
+        state = {
+            ...state,
+            relatedUsers: state.relatedUsers.filter(user => action.id != user.id)
         };
     }
 

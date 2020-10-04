@@ -19,6 +19,15 @@ export async function acceptFriendRequest(id) {
     };
 }
 
+export async function rejectRequest(id) {
+    await axios.post("/end-friendship/" + id);
+
+    return {
+        type: "REJECT_REQUEST",
+        id
+    };
+}
+
 export async function unfriend(id) {
     await axios.post("/end-friendship/" + id);
 

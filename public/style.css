@@ -693,16 +693,38 @@
 }
 
 
+/* FRIENDS COMPONENT **************** FRIENDS COMPONENT **************** FRIENDS COMPONENT */
+.wannabes-friends-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
 
-/* ////////////// OTHER STUFF //////////////// */
+.wannabes-friends-container h1 {
+    margin-bottom: 10px;
+    white-space: nowrap;
+}
 
 .wannabe-container,
 .friend-container {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding: 10px 0;
 }
 
 .wannabe-container .friends-profile-pic-container,
 .friend-container .friends-profile-pic-container {
     margin-right: 10px;
 }
+
+/* .wannabe-container .wannabe-text-container,
+.friend-container .friend-text-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+
+} */
+/* ////////////// OTHER STUFF //////////////// */
+
+
+
+
