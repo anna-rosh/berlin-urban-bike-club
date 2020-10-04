@@ -42,9 +42,11 @@ export default function Friends() {
                                 />
                             </Link>
                             <div className="wannabe-text-container">
-                                <Link to={`/user/${wannabe.id}`}><h2>{wannabe.first} {wannabe.last}</h2></Link>
-                                <p onClick={(() => dispatch(acceptFriendRequest(wannabe.id)))}>accept friend request</p>
-                                <p onClick={(() => dispatch(rejectRequest(wannabe.id)))}>reject request</p>
+                                <Link className="friend-link" to={`/user/${wannabe.id}`}><h2>{wannabe.first} {wannabe.last}</h2></Link>
+                                <div className="request-links-container">
+                                    <p onClick={(() => dispatch(acceptFriendRequest(wannabe.id)))}>accept friend request</p>
+                                    <p onClick={(() => dispatch(rejectRequest(wannabe.id)))}>reject request</p>
+                                </div>
                             </div>
                             
                         </div>
@@ -64,8 +66,10 @@ export default function Friends() {
                                     />
                                 </Link>
                                 <div className="friend-text-container">
-                                    <Link to={`/user/${friend.id}`}><h2>{friend.first} {friend.last}</h2></Link>
-                                    <p onClick={(() => dispatch(unfriend(friend.id)))}>end friendship</p>
+                                    <Link className="friend-link" to={`/user/${friend.id}`}><h2>{friend.first} {friend.last}</h2></Link>
+                                    <div className="request-links-container">
+                                        <p onClick={(() => dispatch(unfriend(friend.id)))}>end friendship</p>
+                                    </div>
                                 </div>
                                     
                             </div>

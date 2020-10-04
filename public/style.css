@@ -518,7 +518,7 @@
 /* ********* UPLOADER *********** UPLOADER ******** UPLOADER ************ UPLOADER */
 .uploader-overlay {
     width: 100%;
-    height: 100%;
+    height: 150%;
     background-color: rgba(0, 0, 0, 0.5);
     position: absolute;
     top: 0;
@@ -534,6 +534,7 @@
     position: -webkit-sticky;
     padding: 0 2%;
     position: sticky;
+    top: 0;
     left: 100%;
     width: 50%;
     height: 100vh;
@@ -624,8 +625,10 @@
 .uploader-container .menu-link:focus,
 .search-user-results-container .search-user-result h2:hover,
 .search-user-results-container .search-user-result h2:focus {
+    transition: color 0.3s, border 0.3s;
     outline: none;
-    opacity: 0.7;
+    color: blue;
+    border-bottom: 1px solid blue;
 }
 
 .uploader-container .upload-btn:active,
@@ -656,16 +659,16 @@
     margin-bottom: 20px;
     transition: border 0.5s;
     align-self: flex-end;
-    transition: opacity 0.3s;
+    transition: border 0.3s;
 }
 
 .search-container input:hover {
-    opacity: 0.5;
+    border: 1px solid blue;
 }
 
 .search-container input:focus {
     outline: none;
-    border: 2px solid rgb(121, 121, 121);
+    border: 2px solid blue;
 }
 
 .search-user-results-container .search-user-result {
@@ -685,13 +688,20 @@
 .search-container .search-user-result {
     display: flex;
     align-items: center;
-}
-
-.search-user-results-container .search-user-result {
     text-decoration: none;
     color: black;
+    transition: background-color 0.3s;
 }
 
+.search-container .search-user-result:hover,
+.search-container .search-user-result:focus {
+    outline: none;
+    background-color: rgb(233, 229, 229);
+}
+
+.search-container .search-user-result:active {
+    opacity: 0.7;
+}
 
 /* FRIENDS COMPONENT **************** FRIENDS COMPONENT **************** FRIENDS COMPONENT */
 .wannabes-friends-container {
@@ -716,13 +726,51 @@
     margin-right: 10px;
 }
 
-/* .wannabe-container .wannabe-text-container,
-.friend-container .friend-text-container {
+.wannabes-friends-container .friend-link {
+    text-decoration: none;
+    cursor: pointer;
+    color: black;
+}
+
+.wannabes-friends-container h2 {
+    margin-bottom: 10px;
+}
+
+.wannabes-friends-container h2:hover,
+.wannabes-friends-container .friend-link:focus,
+.wannabes-friends-container .request-links-container p:hover {
+    transition: color 0.3s;
+    outline: none;
+    color: blue;
+}
+
+.wannabes-friends-container .friends-profile-pic-container:hover,
+.wannabes-friends-container .friends-profile-pic-container:focus {
+    transition: opacity 0.3s;
+    outline: none;
+    opacity: 0.7;
+}
+
+.wannabes-friends-container h2:active,
+.wannabes-friends-container .friends-profile-pic-container:active,
+.wannabes-friends-container .request-links-container p:hover {
+    transition: opacity 0.3s;
+    opacity: 0.5;
+}
+
+.wannabes-friends-container .wannabe-text-container,
+.wannabes-friends-container .friend-text-container {
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: space-between;
+}
 
-} */
+.wannabes-friends-container .request-links-container p {
+    font-size: 18px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
 /* ////////////// OTHER STUFF //////////////// */
 
 
