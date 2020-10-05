@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import axios from './axios';
+import FriendButton from './FriendButton';
 
 export default function FindPeople() {
     const [searchInput, setSearchInput] = useState("");
@@ -56,18 +57,21 @@ export default function FindPeople() {
             <div className="search-user-results-container">
                 {users.map((user) => {
                     return (
-                        <Link className="search-user-result" key={user.id} to={`/user/${user.id}`}>
-                            <div className="search-user-profile-pic-container">
-                                <img
-                                    className="profile-pic"
-                                    src={user.img_url}
-                                />
-                            </div>
+                        <div className="search-user-result" key={user.id}>
+                            <Link className="search-user-link" to={`/user/${user.id}`}>
+                                <div className="search-user-profile-pic-container">
+                                    <img
+                                        className="profile-pic"
+                                        src={user.img_url}
+                                    />
+                                </div>
 
-                            <h2>
-                                {user.first} {user.last}
-                            </h2>
-                        </Link>
+                                <h2>
+                                    {user.first} {user.last}
+                                </h2>   
+                            </Link>
+                            <FriendButton currProfileId={user.id} />
+                        </div>
                     );
                 })}
             </div>

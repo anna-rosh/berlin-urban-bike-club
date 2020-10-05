@@ -517,7 +517,7 @@
 }
 
 /* friend button ******************+ friend button ****************** friend button */
-.profile-container .friend-btn {
+.friend-btn {
     margin-top: 15px;
     border: 1px solid rgb(121, 121, 121);
     padding: 10px 0;
@@ -527,15 +527,15 @@
     cursor: pointer;
 }
 
-.profile-container .friend-btn:hover,
-.profile-container .friend-btn:focus {
+.friend-btn:hover,
+.friend-btn:focus {
     transition: color 0.3s, border 0.3s;
     outline: none;
     color: blue;
     border: 1px solid blue;
 }
 
-.profile-container .friend-btn:active {
+.friend-btn:active {
     opacity: 0.5;
 }
 
@@ -746,8 +746,7 @@
 .search-container .search-user-result {
     display: flex;
     align-items: center;
-    text-decoration: none;
-    color: black;
+    justify-content: space-between;
     transition: background-color 0.3s;
 }
 
@@ -759,6 +758,19 @@
 
 .search-container .search-user-result:active {
     opacity: 0.7;
+}
+
+.search-container .search-user-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.search-container .friend-btn {
+    width: 250px;
+    white-space: nowrap;
 }
 
 /* FRIENDS COMPONENT **************** FRIENDS COMPONENT **************** FRIENDS COMPONENT */

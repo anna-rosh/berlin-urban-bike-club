@@ -19,9 +19,6 @@ export default function Friends() {
         )
     );
 
-    // console.log('wannabes: ', wannabes);
-    // console.log('friends: ', friends);
-
     useEffect(() => {
         console.log('Friends component mounted!');
         dispatch(receiveFriendsWannabes());
@@ -48,7 +45,6 @@ export default function Friends() {
                                     <p onClick={(() => dispatch(rejectRequest(wannabe.id)))}>reject request</p>
                                 </div>
                             </div>
-                            
                         </div>
                     );
                 })}

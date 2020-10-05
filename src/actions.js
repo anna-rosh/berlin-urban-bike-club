@@ -1,4 +1,3 @@
-import { async } from 'crypto-random-string';
 import axios from './axios';
 
 export async function receiveFriendsWannabes() {
