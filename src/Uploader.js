@@ -42,12 +42,28 @@ export default class Uploader extends React.Component {
 
     closeMenu(e) {
         e.preventDefault();
-        this.props.closeUploader();
+        this.props.closeUploader(); 
+    }
+
+    async logout(e) {
+        e.preventDefault();
+
+        try {
+            const { data } = await axios.post('/logout');
+            location.replace('/welcome');
+
+        } catch(err) {
+            console.log('err in axios post /logout');
+        }
     }
 
     render() {
         return (
-            <div className="uploader-overlay">
+            <div className="uploader-component-container">
+                <div
+                    className="uploader-overlay"
+                    onClick={(e) => this.closeMenu(e)}
+                ></div>
                 <div className="uploader-container">
                     <h3
                         className="close-uploader"
@@ -84,15 +100,37 @@ export default class Uploader extends React.Component {
                         </button>
                     </div>
 
-                    <Link to="/" className="menu-link">
-                        my profile
-                    </Link>
-                    <Link to="/friends" className="menu-link">
-                        friends
-                    </Link>
-                    <Link to="/users" className="menu-link">
-                        find people
-                    </Link>
+                    {/* <div className="menu-link" onClick={(e) => this.closeMenu(e, '/')}>my profile</div>
+                    <div className="menu-link" onClick={(e) => this.closeMenu(e, '/friends')}>friends</div>
+                    <div className="menu-link" onClick={(e) => this.closeMenu(e, '/users')}>find people</div> */}
+
+                    <div
+                        className="menu-link-container"
+                        onClick={(e) => this.closeMenu(e)}
+                    >
+                        <Link to="/" className="menu-link">
+                            my profile
+                        </Link>
+                    </div>
+                    <div
+                        className="menu-link-container"
+                        onClick={(e) => this.closeMenu(e)}
+                    >
+                        <Link to="/friends" className="menu-link">
+                            friends
+                        </Link>
+                    </div>
+                    <div
+                        className="menu-link-container"
+                        onClick={(e) => this.closeMenu(e)}
+                    >
+                        
+                        <Link to="/users" className="menu-link">
+                            find peolpe
+                            <img className="lens-img" src="/img/lens1.png" />
+                        </Link>
+                    </div>
+                    <div className="menu-link-container"><div className="menu-link" onClick={(e) => this.logout(e)}>log out</div></div>
                 </div>
             </div>
         );

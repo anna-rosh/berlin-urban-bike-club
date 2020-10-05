@@ -50,7 +50,7 @@ export default class App extends React.Component {
                                     </div>
                                 </Link>
                                 <Link className="search-users-link" to="/users">
-                                    <img className="lens-img" src="/img/lens.png" />
+                                    <img className="lens-img" src="/img/lens1.png" />
                                 </Link>
                                 <div className="profile-pic-container">
                                     <ProfilePic

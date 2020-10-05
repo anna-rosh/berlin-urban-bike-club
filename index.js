@@ -350,6 +350,11 @@ app.get("/wannabes-friends", async (req, res) => {
     }
 });
 
+app.post('/logout', (req, res) => {
+    req.session.userId = null;
+    res.json({ loggedout: true });
+});
+
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
 app.get('*', function(req, res) { 
     if (!req.session.userId) {

@@ -353,22 +353,23 @@
 }
 
 .app-header .lens-img {
-    width: 35px;
+    width: 27px;
 }
 
 .app-header .lens-img:hover,
 .app-header .friends-img-container:hover,
 .app-header .profile-pic:hover,
-.app-profile-container .bio-container .add-bio-btn:hover,
-.app-profile-container .bio-container .edit-bio-btn:hover {
+.app-header .search-users-link:focus,
+.app-header .friends-link:focus,
+.app-header .profile-pic-container:focus {
+    outline: none;
+    transition: opasity 0.3s;
     opacity: 0.7;
 }
 
 .app-header .lens-img:active,
 .app-header .friends-img-container:active,
-.app-header .profile-pic:active,
-.app-profile-container .bio-container .add-bio-btn:active,
-.app-profile-container .bio-container .edit-bio-btn:active {
+.app-header .profile-pic:active {
     opacity: 0.5;
 }
 
@@ -413,7 +414,17 @@
     height: 85%;
     border-radius: 50%;
     overflow: hidden;
+}
+
+.logged-in-user-profile-pic-container:hover,
+.logged-in-user-profile-pic-container:focus {
+    outline: none;
     cursor: pointer;
+    opacity: 0.7;
+}
+
+.logged-in-user-profile-pic-container:active {
+    opacity: 0.5;
 }
 
 .profile-container .profile-text-container {
@@ -433,6 +444,19 @@
     cursor: pointer;
 }
 
+.bio-container .add-bio-btn:hover,
+.bio-container .add-bio-btn:focus,
+.bio-container .edit-bio-btn:hover,
+.bio-container .edit-bio-btn:focus {
+    transition: color 0.3;
+    outline: none;
+    color: blue;
+}
+
+.bio-container .add-bio-btn:active,
+.bio-container .edit-bio-btn:active {
+    opacity: 0.5;
+}
 
 /* bio edition ******************* bio editor **************** bio editor */
 
@@ -487,9 +511,8 @@
     margin-bottom: 10px;
 }
 
-.profile-container .bio-container .edit-bio-btn {
+.bio-container .edit-bio-btn {
     text-decoration: underline;
-    color: rgb(121, 121, 121);
     cursor: pointer;
 }
 
@@ -502,13 +525,14 @@
     background-color: #fff;
     font-size: 20px;
     cursor: pointer;
-    transition: opacity 0.3s;
 }
 
 .profile-container .friend-btn:hover,
 .profile-container .friend-btn:focus {
+    transition: color 0.3s, border 0.3s;
     outline: none;
-    opacity: 0.7;
+    color: blue;
+    border: 1px solid blue;
 }
 
 .profile-container .friend-btn:active {
@@ -516,11 +540,18 @@
 }
 
 /* ********* UPLOADER *********** UPLOADER ******** UPLOADER ************ UPLOADER */
+.uploader-component-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
 .uploader-overlay {
     width: 100%;
-    height: 150%;
+    height: 100vh;
     background-color: rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     display: flex;
@@ -530,12 +561,12 @@
 }
 
 .uploader-container {
+    z-index: 2;
     font-size: 20px;
-    position: -webkit-sticky;
     padding: 0 2%;
-    position: sticky;
+    position: fixed;
     top: 0;
-    left: 100%;
+    right: 0;
     width: 50%;
     height: 100vh;
     background-color: #fff;
@@ -551,6 +582,16 @@
     left: 3%;
     top: 2%;
     cursor: pointer;
+}
+
+.uploader-container .close-uploader:hover,
+.uploader-container .close-uploader:focus {
+    transition: color 0.3s;
+    color: blue;
+}
+
+.uploader-container .close-uploader:active {
+    opacity: 0.5;
 }
 
 .uploader-container h1 {
@@ -606,35 +647,52 @@
     cursor: pointer;
 }
 
-.uploader-container .menu-link {
-    padding: 10px 0;
+.uploader-container .menu-link-container {
     border-bottom: 1px solid rgb(121, 121, 121);
     width: 100%;
     text-align: center;
     cursor: pointer;
+}
+
+.uploader-container .lens-img {
+    width: 20px;
+    margin-left: 10px;
+    opacity: 0.5;
+    position: absolute;
+    top: 12px;
+}
+
+.uploader-container .menu-link {
+    position: relative;
+    padding: 10px 0;
+    display: block;
+    width: 100%;
     text-decoration: none;
     color: black;
-    cursor: pointer;
 }
 
 .uploader-container .upload-btn:hover,
 .uploader-container .upload-btn:hover:focus,
 .uploader-container .img-upload-container button:hover,
 .uploader-container .img-upload-container button:focus,
-.uploader-container .menu-link:hover,
-.uploader-container .menu-link:focus,
-.search-user-results-container .search-user-result h2:hover,
-.search-user-results-container .search-user-result h2:focus {
+.uploader-container .menu-link-container:hover,
+.uploader-container .menu-link-container:focus {
     transition: color 0.3s, border 0.3s;
     outline: none;
     color: blue;
     border-bottom: 1px solid blue;
 }
 
+.uploader-container .menu-link:hover,
+.uploader-container .menu-link:focus {
+    transition: color 0.3s;
+    color: blue;
+    outline: none;
+}
+
 .uploader-container .upload-btn:active,
 .uploader-container .img-upload-container button:active,
-.uploader-container .menu-link:active,
-.search-user-results-container .search-user-result h2:active {
+.uploader-container .menu-link-container:active {
     opacity: 0.5;
 }
 
@@ -737,11 +795,14 @@
 }
 
 .wannabes-friends-container h2:hover,
-.wannabes-friends-container .friend-link:focus,
-.wannabes-friends-container .request-links-container p:hover {
+.wannabes-friends-container .friend-link:focus {
     transition: color 0.3s;
     outline: none;
     color: blue;
+}
+
+.wannabes-friends-container .request-links-container p:hover {
+    text-decoration: underline;
 }
 
 .wannabes-friends-container .friends-profile-pic-container:hover,

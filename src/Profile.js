@@ -6,7 +6,7 @@ export default function({first, last, imageUrl, clickHandler, bio, setBio}) {
     return (
         <div className="profile-container">
             <div className="profile-pic-section">
-                <div className="large-profile-pic-container">
+                <div className="large-profile-pic-container logged-in-user-profile-pic-container">
                     <ProfilePic
                         first={first}
                         last={last}
