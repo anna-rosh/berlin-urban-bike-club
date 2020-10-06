@@ -28,24 +28,28 @@ export default function Chat() {
     }
 
     return (
-        <div>
-            <h1>Chat Title</h1>
+        <div className="chat-container">
+            <h1>community chat</h1>
             <div className="chat-messages-container" ref={elemRef}>
                 {chatMessages.map(message => {
                     return (
                         <div className="message-container" key={message.id}>
-                            <div className="chat-user-container">
-                                <div className="chat-profile-pic-container">
-                                    <img className="chat-profile-pic" src={message.img_url} /> 
-                                </div>
-                                <p>{message.first} {message.last}:  </p>
+                            <div className="chat-profile-pic-container">
+                                <img className="chat-profile-pic" src={message.img_url} /> 
                             </div>
-                            <p>{message.message}</p>
+                            <div className="user-message">
+                                <p><span>{message.first} {message.last}:</span> {message.message}</p>
+                                <p className="date">{message.created_at}</p>
+                            </div>
                         </div>
                     );
                 })}
             </div>
-            <textarea placeholder="add your message here" onKeyDown={keyCheck}></textarea>
+
+            <div className="chat-message-form">
+                <label htmlFor="chat-message-textarea">your message:</label>
+                <textarea id="chat-message-textarea" onKeyDown={keyCheck}></textarea>
+            </div>  
         </div>
     );
 }

@@ -112,6 +112,7 @@ export default class Uploader extends React.Component {
                             my profile
                         </Link>
                     </div>
+
                     <div
                         className="menu-link-container"
                         onClick={(e) => this.closeMenu(e)}
@@ -120,17 +121,34 @@ export default class Uploader extends React.Component {
                             friends
                         </Link>
                     </div>
+
                     <div
                         className="menu-link-container"
                         onClick={(e) => this.closeMenu(e)}
                     >
-                        
                         <Link to="/users" className="menu-link">
                             find peolpe
                             <img className="lens-img" src="/img/lens1.png" />
                         </Link>
                     </div>
-                    <div className="menu-link-container"><div className="menu-link" onClick={(e) => this.logout(e)}>log out</div></div>
+
+                    <div
+                        className="menu-link-container"
+                        onClick={(e) => this.closeMenu(e)}
+                    >
+                        <Link to="/chat" className="menu-link">
+                            community chat
+                        </Link>
+                    </div>
+
+                    <div className="menu-link-container">
+                        <div
+                            className="menu-link"
+                            onClick={(e) => this.logout(e)}
+                        >
+                            log out
+                        </div>
+                    </div>
                 </div>
             </div>
         );

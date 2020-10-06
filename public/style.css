@@ -336,7 +336,7 @@
     height: 35px;
     border-radius: 50%;
     overflow: hidden;
-    margin-right: 10px;
+    margin-right: 13px;
     background-color: rgb(243, 240, 240);
 }
 
@@ -349,11 +349,21 @@
 .app-header .search-users-link {
     display: flex;
     align-items: center;
-    margin-right: 10px;
+    margin-right: 13px;
 }
 
 .app-header .lens-img {
     width: 27px;
+}
+
+.app-header .chat-link {
+    margin-right: 13px;
+    display: flex;
+    align-items: center;
+}
+
+.app-header .chat-img {
+    width: 35px;
 }
 
 .app-header .lens-img:hover,
@@ -361,7 +371,9 @@
 .app-header .profile-pic:hover,
 .app-header .search-users-link:focus,
 .app-header .friends-link:focus,
-.app-header .profile-pic-container:focus {
+.app-header .profile-pic-container:focus,
+.app-header .chat-link:hover,
+.app-header .chat-link:focus {
     outline: none;
     transition: opasity 0.3s;
     opacity: 0.7;
@@ -369,7 +381,8 @@
 
 .app-header .lens-img:active,
 .app-header .friends-img-container:active,
-.app-header .profile-pic:active {
+.app-header .profile-pic:active,
+.app-header .chat-link:active {
     opacity: 0.5;
 }
 
@@ -780,8 +793,11 @@
 }
 
 .wannabes-friends-container h1 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     white-space: nowrap;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgb(207, 204, 204);
+    padding: 0 10px;
 }
 
 .wannabe-container,
@@ -825,8 +841,7 @@
 }
 
 .wannabes-friends-container h2:active,
-.wannabes-friends-container .friends-profile-pic-container:active,
-.wannabes-friends-container .request-links-container p:hover {
+.wannabes-friends-container .friends-profile-pic-container:active {
     transition: opacity 0.3s;
     opacity: 0.5;
 }
@@ -844,35 +859,95 @@
     cursor: pointer;
 }
 
-/* ////////////// OTHER STUFF //////////////// */
+/* CHAT COMPONETN *************** CHAT COMPONENT **************** CHAT COMPONENT ************** CHAT COMPONENT*/
+.chat-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.chat-container h1 {
+    letter-spacing: 1px;
+}
+
 .chat-messages-container {
     width: 90%;
-    height: 100px;
-    border: 1px solid rgb(121, 121, 121);
+    height: 500px;
+    border-top: 1px solid rgb(207, 204, 204);
+    border-bottom: 1px solid rgb(207, 204, 204);
     overflow: scroll;
+    font-size: 18px;
+    margin-bottom: 30px;
 }
 
 .message-container {
     display: flex;
-    align-items: center;
-    padding: 5px 10px;
-}
-
-.chat-user-container {
-    display: flex;
-    align-items: center;
+    align-items: flex-start;
+    padding: 10px 10px;
 }
 
 .chat-profile-pic-container {
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     overflow: hidden;
     margin-right: 10px;
+    flex-shrink: 0;
 }
 
 .chat-profile-pic {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+
+.user-message {
+    display: flex;
+    flex-direction: column;
+}
+
+.user-message span {
+    font-weight: 600;
+    /* letter-spacing: 1px; */
+}
+
+.user-message p {
+    font-weight: 400;
+}
+
+.user-message .date {
+    color: rgb(190, 187, 187);
+    font-size: 14px;
+}
+
+.chat-message-form {
+    width: 90%;
+    display: flex;
+    align-items: flex-end;
+}
+
+.chat-message-form label {
+    font-size: 20px;
+    white-space: nowrap;
+    margin-right: 5px;
+}
+
+#chat-message-textarea {
+    width: 500px;
+    font-size: 20px;
+    padding: 5px 10px;
+    height: 40px;
+    border: 1px solid rgb(121, 121, 121);
+    transition: border 0.3s;
+    resize: none;
+}
+
+#chat-message-textarea:hover {
+    border: 1px solid blue;
+}
+
+#chat-message-textarea:focus {
+    outline: none;
+    border: 2px solid blue;
 }

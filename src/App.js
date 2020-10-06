@@ -45,6 +45,9 @@ export default class App extends React.Component {
                             </div>
                             
                             <div className="app-header-nav">
+                                <Link className="chat-link" to="/chat">
+                                    <img className="chat-img" src="/img/chat.png" />
+                                </Link>
                                 <Link className="friends-link" to="/friends">
                                     <div className="friends-img-container">
                                         <img className="friends-img" src="/img/friends.png" />
@@ -53,6 +56,7 @@ export default class App extends React.Component {
                                 <Link className="search-users-link" to="/users">
                                     <img className="lens-img" src="/img/lens1.png" />
                                 </Link>
+                                
                                 <div className="profile-pic-container">
                                     <ProfilePic
                                         first={this.state.first}
