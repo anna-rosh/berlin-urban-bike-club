@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const server = require("http").Server(app);
+const io = require("socket.io")(server, { origins: "localhost:8080" });
 const compression = require('compression');
 const cookieSession = require('cookie-session');
 const db = require('./db');
@@ -12,7 +14,7 @@ const s3 = require("./s3");
 const { s3Url } = require("./config");
 const uidSafe = require("uid-safe");
 const path = require("path");
-const { async } = require('crypto-random-string');
+const { userInfo } = require('os');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -30,12 +32,17 @@ if (process.env.NODE_ENV != 'production') {
 
 app.use(express.json());
 
-app.use(
-    cookieSession({
-        secret: `I'm always angry.`,
-        maxAge: 1000 * 60 * 60 * 24 * 14,
-    })
-);
+// new cookie session middleware for using with socket
+const cookieSessionMiddleware = cookieSession({
+    secret: `I'm always angry.`,
+    maxAge: 1000 * 60 * 60 * 24 * 90,
+});
+
+app.use(cookieSessionMiddleware);
+io.use(function (socket, next) {
+    cookieSessionMiddleware(socket.request, socket.request.res, next);
+});
+// END new cookie session middleware 
 
 app.use(csurf());
 
@@ -365,6 +372,42 @@ app.get('*', function(req, res) {
 });
 ////////////////// DO NOT DELETE CODE ABOVE THIS LINE //////////////////
 
-app.listen(8080, function() {
+server.listen(8080, function() {
     console.log("index.js for social network is listening 🦜");
+});
+
+
+io.on('connection', async (socket) => {
+    console.log("the following socked.id is connected: ", socket.id);
+    const userId = socket.request.session.userId;
+    // socket gets access to cookies like this:
+    if(!userId) {
+        return socket.disconnect(true);
+    }
+
+    // place for getting the last ten chat messages
+    try {
+        const { rows } = await db.getLastTenMessages();
+        // console.log("rows in getLastTenMessages: ", rows);
+        io.sockets.emit('chatMessages', rows.reverse());
+
+        //add new message to the chat
+        socket.on('new message typed', async newMsg => {
+            console.log('newMsg', newMsg);
+            console.log('user who sent newMsg: ', userId);
+
+            const { rows: userInfo } = await db.getUserInfo(userId);
+            const { rows:messageInfo } = await db.addChatMessage(userId, newMsg);
+            const newChatMsg = { ...userInfo[0], ...messageInfo[0] };
+
+            io.sockets.emit('addChatMsg', newChatMsg);
+        });
+
+    } catch (err) {
+        console.log('err in getLastTenMessages: ', err);
+    }
+
+    
+
+
 });

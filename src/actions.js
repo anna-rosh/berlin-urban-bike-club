@@ -35,3 +35,17 @@ export async function unfriend(id) {
         id
     };
 }
+
+export function chatMessages(msgs) {
+    return {
+        type: "CHAT_MESSAGES",
+        msgs
+    };
+}
+
+export function addChatMsg(msg) {
+    return {
+        type: "ADD_CHAT_MSG",
+        msg
+    };
+}

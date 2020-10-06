@@ -6,6 +6,7 @@ import ProfilePic from "./ProfilePic";
 import OtherProfile from "./OtherProfile";
 import FindPeople from "./FindPeople";
 import Friends from "./Friends";
+import Chat from "./Chat"
 import { BrowserRouter, Route, Link } from 'react-router-dom';
 
 
@@ -108,6 +109,7 @@ export default class App extends React.Component {
                                 history={props.history}
                             />
                         )} />
+                        <Route path="/chat" render={() => <Chat /> } />
                     </div>
                     
 

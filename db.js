@@ -154,3 +154,32 @@ module.exports.getFriendsWannabes = (currUserId) => {
         [currUserId]
     );
 };
+
+module.exports.getLastTenMessages = () => {
+    return db.query(
+        `SELECT users.first, users.last, users.img_url, chat_messages.message, chat_messages.id, chat_messages.created_at
+        FROM chat_messages
+        JOIN users
+        ON chat_messages.user_id = users.id
+        ORDER BY chat_messages.id DESC
+        LIMIT 10`
+    );
+};
+
+module.exports.getUserInfo = (userId) => {
+    return db.query(
+        `SELECT first, last, img_url
+        FROM users
+        WHERE id = $1`,
+        [userId]
+    );
+};
+
+module.exports.addChatMessage = (userId, message) => {
+    return db.query(
+        `INSERT INTO chat_messages (user_id, message)
+        VALUES ($1, $2)
+        RETURNING message, id, created_at`,
+        [userId, message]
+    );
+};
