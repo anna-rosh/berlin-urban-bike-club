@@ -23,7 +23,7 @@ exports.upload = (req, res, next) => {
         s3.putObject({
             Bucket: "spicedling",
             ACL: "public-read",
-            Key: filename,
+            Key: req.session.userId + '/' + filename,
             Body: fs.createReadStream(path),
             ContentType: mimetype,
             ContentLength: size,
@@ -38,4 +38,28 @@ exports.upload = (req, res, next) => {
                 res.sendStatus(500);
             });
     }
+};
+
+exports.delete = async function emptyS3Directory(dir) {
+    const listParams = {
+        Bucket: "spicedling",
+        Prefix: dir,
+    };
+
+    const listedObjects = await s3.listObjectsV2(listParams).promise();
+
+    if (listedObjects.Contents.length === 0) return;
+
+    const deleteParams = {
+        Bucket: "spicedling",
+        Delete: { Objects: [] },
+    };
+
+    listedObjects.Contents.forEach(({ Key }) => {
+        deleteParams.Delete.Objects.push({ Key });
+    });
+
+    await s3.deleteObjects(deleteParams).promise();
+    
+    if (listedObjects.IsTruncated) await emptyS3Directory(dir);
 };

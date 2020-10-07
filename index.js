@@ -14,8 +14,6 @@ const s3 = require("./s3");
 const { s3Url } = require("./config");
 const uidSafe = require("uid-safe");
 const path = require("path");
-const { userInfo } = require('os');
-const { async } = require('crypto-random-string');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -211,7 +209,7 @@ app.post("/upload-profile-picture", uploader.single("file"), s3.upload, async (r
         res.json({ error: true });
     } else {
         const { filename } = req.file;
-        const imageUrl = `${s3Url}${filename}`;
+        const imageUrl = `${s3Url}${req.session.userId}/${filename}`;
 
         try {
             const { rows } = await db.updateProfilePicUrl(imageUrl, req.session.userId);
@@ -367,6 +365,8 @@ app.post('/delete-profile', async (req, res) => {
     const userId = req.session.userId;
     req.session.userId = null;
     console.log('userId: ', userId);
+
+    s3.delete(userId.toString());
 
     try {
         await db.deleteProfile(userId);
