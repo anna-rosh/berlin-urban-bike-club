@@ -46,7 +46,13 @@ exports.delete = async function emptyS3Directory(dir) {
         Prefix: dir,
     };
 
-    const listedObjects = await s3.listObjectsV2(listParams).promise();
+    let listedObjects;
+    try {
+        listedObjects = await s3.listObjectsV2(listParams).promise(); 
+    } catch (err) {
+        console.log("err in s3.listObjectsV2", err);
+    }
+    
 
     if (listedObjects.Contents.length === 0) return;
 
@@ -59,7 +65,19 @@ exports.delete = async function emptyS3Directory(dir) {
         deleteParams.Delete.Objects.push({ Key });
     });
 
-    await s3.deleteObjects(deleteParams).promise();
+    try {
+        await s3.deleteObjects(deleteParams).promise(); 
+    } catch (err) {
+        console.log("err in s3.deleteObjects", err);
+    }
     
-    if (listedObjects.IsTruncated) await emptyS3Directory(dir);
+
+    if (listedObjects.IsTruncated) {
+        try {
+            await emptyS3Directory(dir); 
+        } catch (err) {
+            console.log("err in emptyS3Directory", err);
+        }
+    }
+    
 };

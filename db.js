@@ -191,3 +191,19 @@ module.exports.deleteProfile = (userId) => {
         [userId]
     );
 };
+
+// used in FriendsOfFriend component to get a list of friends
+module.exports.findFriendshipsById = (id) => {
+    return db.query(
+        `SELECT users.id, users.first, users.last, users.img_url
+        FROM friendships
+        JOIN users
+        ON (friendships.accepted = true 
+            AND friendships.recipient_id = $1 
+            AND friendships.sender_id = users.id)
+        OR (friendships.accepted = true 
+            AND friendships.sender_id = $1
+            AND friendships.recipient_id = users.id)`,
+        [id]
+    );
+};

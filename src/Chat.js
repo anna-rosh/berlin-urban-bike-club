@@ -62,5 +62,6 @@ export default function Chat() {
                 <textarea id="chat-message-textarea" onKeyDown={keyCheck}></textarea>
             </div>  
         </div>
-    );
-}
+    ); // closes return statement
+
+} // closes the hook

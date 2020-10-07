@@ -257,6 +257,9 @@ app.get('/api/user/:id', async (req, res) => {
 
 });
 
+
+
+
 // default: show three most resent users
 app.get('/find-users', async (req, res) => {
     // get three most resent users (id, first, last, img_url)
@@ -374,6 +377,34 @@ app.post('/delete-profile', async (req, res) => {
 
     } catch (err) {
         console.log('err in deleteProfile: ', err);
+    }
+
+});
+
+///////////////// REQUESTS FOR FRIENDS OF FRIENS COMPONENT ////////////////
+app.get("/friendship-status/:id", async (req, res) => {
+    try {
+        const { rows } = await db.checkFriendshipStatus(
+            req.params.id,
+            req.session.userId
+        );
+        // console.log("ROWS IN checkFriendshipStatus: ", rows);
+        res.json(rows[0]);
+    } catch (err) {
+        console.log("err in checkFriendshipStatus: ", err);
+    }
+});
+
+app.get('/friends-of-friend/:profileId', async (req, res) => {
+    try {
+        // the id of the currently viewed profile is passed to the function to
+        // get the list of friends of the owner of the profile
+        const { rows } = await db.findFriendshipsById(req.params.profileId);
+        console.log('ROWS in findFriendshipsById: ', rows);
+        res.json(rows);
+
+    } catch(err) {
+        console.log('err in findFriendshipsById: ', err);
     }
 
 });

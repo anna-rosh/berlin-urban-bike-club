@@ -20,7 +20,7 @@ export default function Friends() {
     );
 
     useEffect(() => {
-        console.log('Friends component mounted!');
+        // console.log('Friends component mounted!');
         dispatch(receiveFriendsWannabes());
     }, []);
 

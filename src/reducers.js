@@ -70,6 +70,12 @@ export default function(state = {}, action) {
         }
 
     }
+
+    if (action.type == "RECEIVE_FRIENDS_OF_FRIEND") {
+        state = Object.assign({}, state, {
+            friendsOfFriend: action.friendsOfFriend,
+        });
+    }
         
     // console.log('state.chatMessages: ', state.chatMessages);
 

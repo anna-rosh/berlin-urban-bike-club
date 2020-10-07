@@ -9,7 +9,6 @@ export default function FriendButton(props) {
         (async() => {
             try {
                 const { data } = await axios.get('/initial-friendship-status/' + props.currProfileId);
-                console.log('data in initial friendship status: ', data);
                 setButtonText(data.buttonText);
             } catch (err) {
                 console.log('err in axios get /initial-friendship-status/..', err);

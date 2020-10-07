@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "./axios";
 import FriendButton from "./FriendButton";
+import FriendsOfFriend from "./FriendsOfFriend";
 
 export default class OtherProfile extends React.Component{
     constructor(props) {
@@ -15,14 +16,24 @@ export default class OtherProfile extends React.Component{
                 if (data.currUserId === data.id || data.error) {
                     this.props.history.push("/");
                 } else {
-                   this.setState(data); 
+                    this.setState(data); 
                 }
             })
             .catch(err => console.log('err in GET /api/user/id', err));
+
+        axios
+            .get(`/friendship-status/${this.props.match.params.id}`)
+            .then(({ data }) => {
+                // console.log("data in friendship-status: ", data);
+                if (data.accepted) {
+                    this.setState({ friends: true });
+                }
+            })
+            .catch((err) => console.log("err in GET /friendship-status/id: ", err));
     }
 
     render() {
-        const { first, last, bio, img_url } = this.state;
+        const { first, last, bio, img_url, id } = this.state;
 
         if (!first) {
             return 'Loading...';
@@ -43,6 +54,8 @@ export default class OtherProfile extends React.Component{
                     <p>{bio}</p>
                 </div>
                 <FriendButton currProfileId={this.state.id} />
+
+                {this.state.friends && <FriendsOfFriend profileId={id} />}
             </div>
         );
 

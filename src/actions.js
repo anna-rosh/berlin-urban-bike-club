@@ -56,3 +56,13 @@ export function deleteProfileById(id) {
         id
     };
 }
+
+export async function receiveFriendsOfFriend(profileId) {
+    const { data } = await axios.get('/friends-of-friend/' + profileId);
+    console.log("data in receiveFriendsOfFriend", data);
+    
+    return {
+        type: "RECEIVE_FRIENDS_OF_FRIEND",
+        friendsOfFriend: data
+    };
+}
