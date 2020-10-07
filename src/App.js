@@ -43,20 +43,29 @@ export default class App extends React.Component {
                                 <img id="logo" src="/img/bicycle.png" />
                                 <h3>berlin urban bike club</h3>
                             </div>
-                            
+
                             <div className="app-header-nav">
                                 <Link className="chat-link" to="/chat">
-                                    <img className="chat-img" src="/img/chat.png" />
+                                    <img
+                                        className="chat-img"
+                                        src="/img/chat.png"
+                                    />
                                 </Link>
                                 <Link className="friends-link" to="/friends">
                                     <div className="friends-img-container">
-                                        <img className="friends-img" src="/img/friends.png" />
+                                        <img
+                                            className="friends-img"
+                                            src="/img/friends.png"
+                                        />
                                     </div>
                                 </Link>
                                 <Link className="search-users-link" to="/users">
-                                    <img className="lens-img" src="/img/lens1.png" />
+                                    <img
+                                        className="lens-img"
+                                        src="/img/lens1.png"
+                                    />
                                 </Link>
-                                
+
                                 <div className="profile-pic-container">
                                     <ProfilePic
                                         first={this.state.first}
@@ -70,7 +79,6 @@ export default class App extends React.Component {
                                     />
                                 </div>
                             </div>
-                            
                         </div>
                     </header>
 
@@ -106,16 +114,27 @@ export default class App extends React.Component {
                             )}
                         />
                         <Route path="/users" render={() => <FindPeople />} />
-                        <Route path="/friends" render={(props) => (
-                            <Friends 
-                                key={props.match.url}
-                                match={props.match}
-                                history={props.history}
-                            />
-                        )} />
-                        <Route path="/chat" render={() => <Chat /> } />
+                        <Route
+                            path="/friends"
+                            render={(props) => (
+                                <Friends
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
+                        <Route
+                            path="/chat"
+                            render={(props) => (
+                                <Chat
+                                    key={props.match.url}
+                                    match={props.match}
+                                    history={props.history}
+                                />
+                            )}
+                        />
                     </div>
-                    
 
                     {this.state.uploaderIsVisible && (
                         <Uploader
@@ -127,8 +146,8 @@ export default class App extends React.Component {
                             }}
                             closeUploader={() => {
                                 this.setState({
-                                    uploaderIsVisible: false
-                                })
+                                    uploaderIsVisible: false,
+                                });
                             }}
                         />
                     )}

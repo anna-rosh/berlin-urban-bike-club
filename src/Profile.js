@@ -22,7 +22,7 @@ export default function({first, last, imageUrl, clickHandler, bio, setBio}) {
                 <BioEditor
                     bio={bio}
                     setBio={setBio}
-                /> 
+                />
             </div>
         </div>
     );

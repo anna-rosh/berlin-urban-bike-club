@@ -902,14 +902,31 @@
     object-fit: cover;
 }
 
+.chat-profile-pic-container:hover,
+.chat-profile-pic-container:focus {
+    opacity: 0.7;
+}
+
 .user-message {
     display: flex;
     flex-direction: column;
 }
 
-.user-message span {
+.user-message .chat-user-link {
     font-weight: 600;
-    /* letter-spacing: 1px; */
+    text-decoration: none;
+    color: black;
+}
+
+.user-message .chat-user-link:hover,
+.user-message .chat-user-link:focus {
+    transition: color 0.3;
+    color: blue;
+}
+
+.user-message .chat-user-link:active,
+.chat-profile-pic-container:active {
+    opacity: 0.5;
 }
 
 .user-message p {

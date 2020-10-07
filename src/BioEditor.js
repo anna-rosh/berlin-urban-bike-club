@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from './axios';
+import Delete from './Delete';
 
 export default class BioEditor extends React.Component {
     constructor(props) {
@@ -50,7 +51,7 @@ export default class BioEditor extends React.Component {
 
     render() {
 
-        if (!this.props.bio) {
+        if (!this.props.bio && this.props.bio == "") {
            return (
                <div className="bio-container">
                    {this.state.error && (
@@ -58,7 +59,11 @@ export default class BioEditor extends React.Component {
                    )}
 
                    {this.state.buttonIsVisible && (
-                       <p className="add-bio-btn" onClick={(e) => this.showTextarea(e)}>add bio</p>
+                       <>
+                        <p className="add-bio-btn" onClick={(e) => this.showTextarea(e)}>add bio</p>
+                        <Delete />
+                       </>
+                       
                    )}
                    {this.state.textareaIsVisible && (
                        <div className="bio-editor">
@@ -88,6 +93,7 @@ export default class BioEditor extends React.Component {
                         <>
                         <p className="bio">{this.props.bio}</p>
                         <p className="edit-bio-btn" onClick={(e) => this.showTextarea(e)}>edit bio</p>
+                        <Delete />
                         </>
                     )}
                     

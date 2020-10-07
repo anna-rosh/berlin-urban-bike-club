@@ -157,7 +157,7 @@ module.exports.getFriendsWannabes = (currUserId) => {
 
 module.exports.getLastTenMessages = () => {
     return db.query(
-        `SELECT users.first, users.last, users.img_url, chat_messages.message, chat_messages.id, chat_messages.created_at
+        `SELECT users.first, users.last, users.img_url, chat_messages.message, chat_messages.id, chat_messages.created_at, chat_messages.user_id
         FROM chat_messages
         JOIN users
         ON chat_messages.user_id = users.id
@@ -179,7 +179,15 @@ module.exports.addChatMessage = (userId, message) => {
     return db.query(
         `INSERT INTO chat_messages (user_id, message)
         VALUES ($1, $2)
-        RETURNING message, id, created_at`,
+        RETURNING message, id, created_at, user_id`,
         [userId, message]
+    );
+};
+
+module.exports.deleteProfile = (userId) => {
+    return db.query(
+        `DELETE FROM users
+        WHERE id = $1`,
+        [userId]
     );
 };

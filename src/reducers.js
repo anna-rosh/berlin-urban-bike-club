@@ -45,14 +45,34 @@ export default function(state = {}, action) {
 
     if (action.type == "ADD_CHAT_MSG") {
 
-        console.log('action.msg', action.msg);
         state = {
             ...state,
             chatMessages: [...state.chatMessages, action.msg]
         };
     }
 
+    if (action.type == "DELETE_PROFILE_BY_ID") {
+        console.log('action.id', action.id);
+        
+        if (state.relatedUsers) {
+            state = {
+                ...state,
+                relatedUsers: state.relatedUsers.filter(user => action.id != user.id)
+            };
+        }
+
+        if (state.chatMessages) {
+            console.log(state.chatMessages.filter(message => message.user_id == action.id));
+            state = {
+                ...state,
+                chatMessages: state.chatMessages.filter(message => message.user_id != action.id)
+            };
+        }
+
+    }
+        
     // console.log('state.chatMessages: ', state.chatMessages);
 
     return state;
+
 }

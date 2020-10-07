@@ -26,8 +26,8 @@ DROP TABLE IF EXISTS friendships;
 
 CREATE TABLE friendships(
     id SERIAL PRIMARY KEY,
-    sender_id INT REFERENCES users(id) NOT NULL,
-    recipient_id INT REFERENCES users(id) NOT NULL,
+    sender_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+    recipient_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     accepted BOOLEAN DEFAULT false
 );
 
@@ -35,7 +35,7 @@ DROP TABLE IF EXISTS chat_messages;
 
 CREATE TABLE chat_messages(
     id SERIAL PRIMARY KEY,
-    user_id INT NOT NULL REFERENCES users(id),
+    user_id INT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
     message VARCHAR NOT NULL CHECK (message != ''),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );

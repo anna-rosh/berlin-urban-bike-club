@@ -49,3 +49,10 @@ export function addChatMsg(msg) {
         msg
     };
 }
+
+export function deleteProfileById(id) {
+    return {
+        type: "DELETE_PROFILE_BY_ID",
+        id
+    };
+}

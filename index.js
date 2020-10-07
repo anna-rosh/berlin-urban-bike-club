@@ -15,6 +15,7 @@ const { s3Url } = require("./config");
 const uidSafe = require("uid-safe");
 const path = require("path");
 const { userInfo } = require('os');
+const { async } = require('crypto-random-string');
 // compression makes the responses smaller and the application faster (can be used in any server)
 app.use(compression());
 
@@ -42,7 +43,7 @@ app.use(cookieSessionMiddleware);
 io.use(function (socket, next) {
     cookieSessionMiddleware(socket.request, socket.request.res, next);
 });
-// END new cookie session middleware 
+// END new cookie session middleware
 
 app.use(csurf());
 
@@ -77,7 +78,7 @@ app.get('/welcome', (req, res) => {
     if (req.session.userId) {
         res.redirect('/');
     } else {
-        res.sendFile(__dirname + "/index.html"); 
+        res.sendFile(__dirname + "/index.html");
     }
 });
 
@@ -98,7 +99,7 @@ app.post('/register', (req, res) => {
                 });
         })
         .catch((err) => {
-            console.log("err in hash: ", err); 
+            console.log("err in hash: ", err);
             res.json({ error: true });
         });
 
@@ -144,7 +145,7 @@ app.post('/password/reset/start', (req, res) => {
             db.addCode(email, resetCode)
                 .then(() => {
                     ses.sendEmail(email, `please use the following code to reset your password: ${resetCode}`, 'reset your password');
-                    
+
                     res.json({ error: false });
                 })
                 .catch(err => {
@@ -172,7 +173,7 @@ app.post('/password/reset/verify', (req, res) => {
             } else {
                 bc.hash(password)
                     .then(hashedPassword => {
-                        
+
                         db.updatePassword(hashedPassword, email)
                             .then(() => {
                                 res.json({ error: false });
@@ -248,7 +249,7 @@ app.get('/api/user/:id', async (req, res) => {
             res.json({
                 ...rows[0],
                 currUserId: req.session.userId
-            });  
+            });
         }
 
     } catch (err) {
@@ -268,7 +269,7 @@ app.get('/find-users', async (req, res) => {
     } catch (err) {
         console.log('err in getNewUsers: ', err);
     }
-    
+
 });
 
 // show the users usign user search input
@@ -277,7 +278,7 @@ app.get('/find-users/:input', async (req, res) => {
     try {
         const { rows } = await db.getMatchingUsers(req.params.input, req.session.userId);
         res.json(rows);
-        
+
     } catch (err) {
         console.log('err in getMatchingUsers: ', err);
     }
@@ -291,7 +292,7 @@ app.get("/initial-friendship-status/:currProfileId", async (req, res) => {
         // friendship request make possible for the logged in user to send a reqest
         if (rows.length == 0) {
             res.json({ buttonText: 'send friend request' });
-        
+
         } else {
             // if the is some relationship => check if the request was accepted:
             // yes => make it possible for the logged in user to end the friendship
@@ -342,7 +343,7 @@ app.post("/accept-friend-request/:currProfileId", async (req, res) => {
     try {
         await db.acceptFriendship(req.session.userId, req.params.currProfileId);
         res.json({ buttonText: 'end friendship' });
-        
+
     } catch (err) {
         console.log('err in acceptFriendship: ', err);
     }
@@ -362,12 +363,27 @@ app.post('/logout', (req, res) => {
     res.json({ loggedout: true });
 });
 
+app.post('/delete-profile', async (req, res) => {
+    const userId = req.session.userId;
+    req.session.userId = null;
+    console.log('userId: ', userId);
+
+    try {
+        await db.deleteProfile(userId);
+        res.json({ userId });
+
+    } catch (err) {
+        console.log('err in deleteProfile: ', err);
+    }
+
+});
+
 ////////////////// DO NOT DELETE CODE BELOW THIS LINE //////////////////
-app.get('*', function(req, res) { 
+app.get('*', function(req, res) {
     if (!req.session.userId) {
         res.redirect('/welcome');
     } else {
-        res.sendFile(__dirname + '/index.html');  
+        res.sendFile(__dirname + '/index.html');
     }
 });
 ////////////////// DO NOT DELETE CODE ABOVE THIS LINE //////////////////
@@ -393,12 +409,15 @@ io.on('connection', async (socket) => {
 
         //add new message to the chat
         socket.on('new message typed', async newMsg => {
-            console.log('newMsg', newMsg);
-            console.log('user who sent newMsg: ', userId);
+            // console.log('newMsg', newMsg);
+            // console.log('user who sent newMsg: ', userId);
 
             const { rows: userInfo } = await db.getUserInfo(userId);
             const { rows:messageInfo } = await db.addChatMessage(userId, newMsg);
+            // merge user information and message information
             const newChatMsg = { ...userInfo[0], ...messageInfo[0] };
+
+            // console.log('newChatMsg: ', newChatMsg);
 
             io.sockets.emit('addChatMsg', newChatMsg);
         });
@@ -407,7 +426,7 @@ io.on('connection', async (socket) => {
         console.log('err in getLastTenMessages: ', err);
     }
 
-    
+
 
 
 });

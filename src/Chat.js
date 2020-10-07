@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { socket } from './socket';
 import { useSelector } from "react-redux";
+import { Link } from 'react-router-dom';
 
 
 export default function Chat() {
@@ -22,9 +23,19 @@ export default function Chat() {
         }
     };
 
-
+    // if there are no messages, give the logged in user a possibility to write the first message!
     if (!chatMessages) {
-        return "Loading...";
+        return (
+            <div className="chat-container">
+                <h1>community chat</h1>
+                <div className="chat-messages-container" ref={elemRef}></div>
+
+                <div className="chat-message-form">
+                    <label htmlFor="chat-message-textarea">your message:</label>
+                    <textarea id="chat-message-textarea" onKeyDown={keyCheck}></textarea>
+                </div>  
+            </div>
+        );
     }
 
     return (
@@ -34,11 +45,11 @@ export default function Chat() {
                 {chatMessages.map(message => {
                     return (
                         <div className="message-container" key={message.id}>
-                            <div className="chat-profile-pic-container">
+                            <Link className="chat-profile-pic-container" to={`/user/${message.user_id}`}>
                                 <img className="chat-profile-pic" src={message.img_url} /> 
-                            </div>
+                            </Link>
                             <div className="user-message">
-                                <p><span>{message.first} {message.last}:</span> {message.message}</p>
+                                <p><Link className="chat-user-link" to={`/user/${message.user_id}`}>{message.first} {message.last}:</Link> {message.message}</p>
                                 <p className="date">{message.created_at}</p>
                             </div>
                         </div>
