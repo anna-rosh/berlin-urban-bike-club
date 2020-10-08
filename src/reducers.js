@@ -1,3 +1,5 @@
+import { act } from "react-test-renderer";
+
 export default function(state = {}, action) {
     if (action.type == "RECEIVE_FRIENDS_WANNABES") {
         state = Object.assign({}, state, {
@@ -79,7 +81,14 @@ export default function(state = {}, action) {
         };
     }
 
-    console.log('state.onlineUsers: ', state.onlineUsers);
+    if (action.type == "REMOVE_USER_FROM_ONLINE") {
+        state = {
+            ...state,
+            onlineUsers: state.onlineUsers.filter(user => user.id != action.id)
+        };
+    }
+        
+    console.log("state.onlineUsers: ", state.onlineUsers);
 
     return state;
 }

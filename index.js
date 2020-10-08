@@ -473,19 +473,11 @@ io.on('connection', async (socket) => {
     // check if the newly logged in user's id is already in onlineUsers
     // ADD NEW ONLINE USER
     if (!idsBeforeNewUser.includes(userId)) {
-        // console.log('the value is not in the array yet! id: ', userId);
-        // console.log('socket.id of the joined user: ', socket.id);
-
         // add a new user to the array of all users online
         try {
             const { rows } = await db.getUserById(userId);
-            // console.log('rows of the newly logged in user: ', rows[0]);
-
-            // console.log("socket.id of the joined user: ", socket.id);  
-
+            // console.log('rows of the newly logged in user: ', rows[0]); 
             io.sockets.sockets[socket.id].broadcast.emit('userJoined', rows);
-
-            // io.sockets.emit("userJoined", rows);
 
         } catch (err) {
             console.log('err in getUserById in socket: ', err);
@@ -493,6 +485,7 @@ io.on('connection', async (socket) => {
 
     } // closes else statement
 
+    // DISPLAY ALL ONLINE USERS
     try {
         console.log("ids inside try: ", allOnlineIds);
 
@@ -507,14 +500,11 @@ io.on('connection', async (socket) => {
 
     socket.on("disconnect", () => {
         delete onlineUsers[socket.id];
-        console.log('try to see what user in is: ', userId);
 
         let userIdArr = Object.values(onlineUsers).filter((id) => id == userId);
 
-        console.log('userIdArr: ', userIdArr);
-
         if (userIdArr.length == 0) {
-            
+            io.sockets.emit("userLeft", userId);
         }
 
     });

@@ -65,8 +65,6 @@ export async function receiveFriendsOfFriend(profileId) {
 ////////////////////////// USERS ONLINE ////////////////////////////
 
 export function addNewOnlineUser(user) {
-    console.log('userInfo in actions: ', user);
-
     return {
         type: "ADD_NEW_ONLINE_USER",
         user
@@ -74,10 +72,15 @@ export function addNewOnlineUser(user) {
 }
 
 export function displayAllOnlineUsers(users) {
-    console.log('online users in actions: ', users);
-
     return {
         type: "DISPLAY_ALL_ONLINE_USERS",
         users
+    };
+}
+
+export function removeUserFromOnline(id) {
+    return {
+        type: "REMOVE_USER_FROM_ONLINE",
+        id
     };
 }
