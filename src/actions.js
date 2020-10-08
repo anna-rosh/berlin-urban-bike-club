@@ -50,13 +50,6 @@ export function addChatMsg(msg) {
     };
 }
 
-export function deleteProfileById(id) {
-    return {
-        type: "DELETE_PROFILE_BY_ID",
-        id
-    };
-}
-
 export async function receiveFriendsOfFriend(profileId) {
     const { data } = await axios.get('/friends-of-friend/' + profileId);
     console.log("data in receiveFriendsOfFriend", data);

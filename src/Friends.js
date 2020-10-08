@@ -22,7 +22,7 @@ export default function Friends() {
     useEffect(() => {
         // console.log('Friends component mounted!');
         dispatch(receiveFriendsWannabes());
-    }, []);
+    }, [friends, wannabes]);
 
 
     return (

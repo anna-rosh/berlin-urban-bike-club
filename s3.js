@@ -46,6 +46,9 @@ exports.delete = async function emptyS3Directory(dir) {
         Prefix: dir,
     };
 
+    console.log("directory: ", dir);
+    console.log('typeof dir', typeof dir);
+
     let listedObjects;
     try {
         listedObjects = await s3.listObjectsV2(listParams).promise(); 

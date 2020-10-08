@@ -45,6 +45,7 @@ export default class OtherProfile extends React.Component{
                     <div className="large-profile-pic-container">
                         <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
                     </div>
+                    <FriendButton currProfileId={this.state.id} />
                 </div>
                 
                 <div className="profile-text-container">
@@ -53,7 +54,7 @@ export default class OtherProfile extends React.Component{
                     </h1>
                     <p>{bio}</p>
                 </div>
-                <FriendButton currProfileId={this.state.id} />
+                
 
                 {this.state.friends && <FriendsOfFriend profileId={id} />}
             </div>

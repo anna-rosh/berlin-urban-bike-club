@@ -50,26 +50,7 @@ export default function(state = {}, action) {
             chatMessages: [...state.chatMessages, action.msg]
         };
     }
-
-    if (action.type == "DELETE_PROFILE_BY_ID") {
-        console.log('action.id', action.id);
-        
-        if (state.relatedUsers) {
-            state = {
-                ...state,
-                relatedUsers: state.relatedUsers.filter(user => action.id != user.id)
-            };
-        }
-
-        if (state.chatMessages) {
-            console.log(state.chatMessages.filter(message => message.user_id == action.id));
-            state = {
-                ...state,
-                chatMessages: state.chatMessages.filter(message => message.user_id != action.id)
-            };
-        }
-
-    }
+    
 
     if (action.type == "RECEIVE_FRIENDS_OF_FRIEND") {
         state = Object.assign({}, state, {

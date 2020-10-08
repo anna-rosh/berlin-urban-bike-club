@@ -1,30 +1,49 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import { async } from 'crypto-random-string';
+import React, { useState } from 'react';
 import axios from './axios';
-import { deleteProfileById } from './actions';
+
 
 export default function Delete() {
-    const dispatch = useDispatch();
-    
-    const handleClick = async (e) => {
+    const [showAreYouSure, setShowAreYouSure] = useState(false);
+
+
+    const handleClickOnDelete = (e) => {
         e.preventDefault();
+        setShowAreYouSure(true);
+    };
+
+    const handleClickOnNo = (e) => {
+        e.preventDefault();
+        setShowAreYouSure(false);
+    }
+
+    const handleClickOnYes = async (e) => {
+        e.preventDefault();
+        console.log('yes was clicked!');
 
         try {
-            const { data } = await axios.post('/delete-profile');
-            console.log('data of the deleted profile: ', data);
-            
-            dispatch(deleteProfileById(data.userId));
-            location.replace("/welcome");
+            await axios.post('/delete-profile');
+            location.replace('/welcome');
 
-        } catch (err) {
-            console.log('err in handleClick in delete component: ', err);
+        } catch(err) {
+            console.log('err in axios POST /delete-profile', err);
         }
-
-        
-    };
+    } 
 
 
     return (
-        <p onClick={handleClick}>delete my profile</p>
+        <>
+            <p onClick={handleClickOnDelete}>delete my profile</p>
+            {showAreYouSure && (
+                <>
+                 <div className="are-you-sure-overlay"></div>
+                 <div className="are-you-sure-container">
+                     <h2>you are going to delete your profile. are you sure?</h2>
+                     <div className="ays-btn" onClick={handleClickOnNo}>no</div>
+                     <div className="ays-btn" onClick={handleClickOnYes}>yes</div>
+                 </div>
+                </>
+            )}
+        </>
     );
 }
