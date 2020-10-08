@@ -42,6 +42,7 @@ export default function Chat() {
     return (
         <div className="chat-container">
             <h1>community chat</h1>
+            <OnlineUsers />
             <div className="chat-messages-container" ref={elemRef}>
                 {chatMessages.map(message => {
                     return (
@@ -62,8 +63,6 @@ export default function Chat() {
                 <label htmlFor="chat-message-textarea">your message:</label>
                 <textarea id="chat-message-textarea" onKeyDown={keyCheck}></textarea>
             </div>
-
-            <OnlineUsers />
         </div>
     ); // closes return statement
 

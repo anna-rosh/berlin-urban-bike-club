@@ -67,12 +67,14 @@ export default class BioEditor extends React.Component {
                    )}
                    {this.state.textareaIsVisible && (
                        <div className="bio-editor">
-                           <label htmlFor="bio-field">add your bio</label>
-                           <textarea
-                               onChange={(e) => this.handleInputChange(e)}
-                               id="bio-field"
-                               name="bio"
-                           ></textarea>
+                           <div className="bio-editor-form">
+                                <label htmlFor="bio-field">add your bio:</label>
+                                <textarea
+                                    onChange={(e) => this.handleInputChange(e)}
+                                    id="bio-field"
+                                    name="bio"
+                                ></textarea>
+                           </div>
                            <button className="save-bio-btn" onClick={(e) => this.saveText(e)}>
                                save
                            </button>
@@ -99,12 +101,15 @@ export default class BioEditor extends React.Component {
                     
                     {this.state.textareaIsVisible && (
                             <div className="bio-editor">
-                                <label htmlFor="bio-field">bio</label>
-                                <textarea
-                                    onChange={(e) => this.handleInputChange(e)}
-                                    id="bio-field"
-                                    name="bio"
-                                >{this.props.bio}</textarea>
+                                <div className="bio-editor-form">
+                                    <label htmlFor="bio-field">bio:</label>
+                                    <textarea
+                                        onChange={(e) => this.handleInputChange(e)}
+                                        id="bio-field"
+                                        name="bio"
+                                    >{this.props.bio}</textarea> 
+                                </div>
+                                
                                 <button className="save-bio-btn" onClick={(e) => this.saveText(e)}>
                                     save changes
                                 </button>

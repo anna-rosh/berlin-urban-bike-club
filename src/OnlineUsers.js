@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 export default function OnlineUsers() {
     const onlineUsers = useSelector((state) => state && state.onlineUsers);
@@ -9,9 +10,12 @@ export default function OnlineUsers() {
             <h3>users online:</h3>
             {onlineUsers && onlineUsers.map(user => {
                 return (
-                    <div className="online-user-container" key={user.id}>
+                    <Link className="online-user-container" key={user.id} to={`/user/${user.id}`}>
+                        <div className="online-user-profile-pic-container">
+                            <img className="profile-pic" src={user.img_url} />
+                        </div>
                         <p>{user.first} {user.last}</p>
-                    </div>
+                    </Link>
                 );
             })}
         </div>

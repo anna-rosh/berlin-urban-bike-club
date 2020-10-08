@@ -310,6 +310,19 @@
 .app-header .logo-title-container {
     display: flex;
     align-items: center;
+    text-decoration: none;
+    color: black;
+}
+
+.app-header .logo-title-container:hover,
+.app-header .logo-title-container:focus {
+    outline: none;
+    opacity: 0.7;
+    transition: opacity 0.3s;
+}
+
+.app-header .logo-title-container:active {
+    opacity: 0.5;
 }
 
 #logo {
@@ -441,8 +454,9 @@
 }
 
 .profile-container .profile-text-container {
-    font-size: 17px;
+    font-size: 20px;
     position: relative;
+    padding-right: 10px;
 }
 
 .profile-container .profile-text-container h1 {
@@ -454,7 +468,7 @@
 .profile-container .bio-container .add-bio-btn,
 .delete-profile-btn {
     text-decoration: underline;
-    font-size: 17px;
+    font-size: 20px;
     cursor: pointer;
 }
 
@@ -478,28 +492,41 @@
 /* bio edition ******************* bio editor **************** bio editor */
 
 .profile-container .bio-container .bio-editor {
-    max-width: 500px;
     display: flex;
     flex-direction: column;
 }
 
-.profile-container .bio-container label {
-    color: rgb(207, 204, 204);
-    align-self: flex-end;
+.bio-editor-form {
+    display: flex;
+}
+
+.bio-editor-form label {
+    align-self: center;
+    font-size: 20px;
+    margin-right: 5px;
+    white-space: nowrap;
 }
 
 #bio-field {
-    margin-bottom: 10px;
-    padding: 5px;
-    font-size: 17px;
+    width: 400px;
+    font-size: 20px;
+    padding: 5px 10px;
+    height: 40px;
     border: 1px solid rgb(121, 121, 121);
-    height: 80px;
+    margin-bottom: 20px;
+    transition: border 0.5s;
+    align-self: flex-end;
+    transition: border 0.3s;
     resize: none;
+}
+
+#bio-field:hover {
+    border: 1px solid blue;
 }
 
 #bio-field:focus {
     outline: none;
-    border: 2px solid rgb(121, 121, 121);
+    border: 2px solid blue;
 }
 
 .profile-container .bio-container .bio-editor button {
@@ -879,6 +906,7 @@
 
 .chat-container h1 {
     letter-spacing: 1px;
+    margin-bottom: 10px;
 }
 
 .chat-messages-container {
@@ -914,6 +942,7 @@
 
 .chat-profile-pic-container:hover,
 .chat-profile-pic-container:focus {
+    outline: none;
     opacity: 0.7;
 }
 
@@ -930,6 +959,7 @@
 
 .user-message .chat-user-link:hover,
 .user-message .chat-user-link:focus {
+    outline: none;
     transition: color 0.3;
     color: blue;
 }
@@ -1038,7 +1068,8 @@
     overflow-y: scroll;
 }
 
-.friends-of-friend-container {
+.friends-of-friend-container,
+.online-user-container {
     display: flex;
     align-items: center;
     padding: 10px 0;
@@ -1052,11 +1083,13 @@
     background-color: rgb(233, 229, 229);
 }
 
-.friends-of-friend-container:active {
+.friends-of-friend-container:active,
+.online-user-container:active {
     opacity: 0.7;
 }
 
-.friend-of-friend-profile-pic-container {
+.friend-of-friend-profile-pic-container,
+.online-user-profile-pic-container {
     width: 30px;
     height: 30px;
     border-radius: 50%;
@@ -1065,7 +1098,30 @@
     flex-shrink: 0;
 }
 
-/* .friend-of-friend-container p {
-    color: black;
-    text-decoration: none;
-} */
+/* **** ONLINE USERS ********************** ONLINE USERS ************ ONLINE USERS*/
+.users-online-container {
+    display: flex;
+    width: 90%;
+    align-items: center;
+    overflow-x: scroll;
+    border-top: 1px solid rgb(207, 204, 204);
+    padding: 5px 0;
+}
+
+.users-online-container h3 {
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
+.users-online-container .online-user-container {
+    padding: 5px 10px;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+}
+
+.online-user-container:hover,
+.online-user-container:focus {
+    outline: none;
+    transition: color 0.3;
+    color: blue;
+}

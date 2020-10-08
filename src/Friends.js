@@ -29,6 +29,7 @@ export default function Friends() {
         <div className="wannabes-friends-container">
             {wannabes && (<div className="wannabes-container">
                 <h1>friend requests</h1>
+                {wannabes.length == 0 && <p>no friend requests</p>}
                 {wannabes.map((wannabe) => {
                     return (
                         <div  className="wannabe-container" key={wannabe.id}>
@@ -52,6 +53,7 @@ export default function Friends() {
             {friends && (
                 <div className="friends-container">
                     <h1>friends</h1>
+                    {friends.length == 0 && <p>no friends yet</p>}
                     {friends.map((friend) => {
                         return (
                             <div className="friend-container" key={friend.id}>

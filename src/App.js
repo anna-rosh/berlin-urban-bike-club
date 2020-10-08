@@ -39,10 +39,10 @@ export default class App extends React.Component {
                     {/* header is an unchanged element throughout the app (logged in) */}
                     <header className="app-header">
                         <div className="header-content">
-                            <div className="logo-title-container">
+                            <Link className="logo-title-container" to="/">
                                 <img id="logo" src="/img/bicycle.png" />
                                 <h3>berlin urban bike club</h3>
-                            </div>
+                            </Link>
 
                             <div className="app-header-nav">
                                 <Link className="chat-link" to="/chat">

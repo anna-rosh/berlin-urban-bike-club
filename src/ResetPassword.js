@@ -130,6 +130,7 @@ export default class ResetPassword extends React.Component {
                                     onChange={(e) => this.handleInputChange(e)}
                                     name="password"
                                     id="new-password"
+                                    type="password"
                                 />
 
                                 <button

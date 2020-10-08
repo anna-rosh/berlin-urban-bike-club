@@ -467,7 +467,7 @@ io.on('connection', async (socket) => {
     // console.log('ids: ', ids);
     // add the user who just connected to the socket (logged it)
     onlineUsers[socket.id] = userId;
-    console.log('onlineUSers: ', onlineUsers);
+    // console.log('onlineUSers: ', onlineUsers);
     let allOnlineIds = Object.values(onlineUsers);
 
     // check if the newly logged in user's id is already in onlineUsers
@@ -486,12 +486,10 @@ io.on('connection', async (socket) => {
     } // closes else statement
 
     // DISPLAY ALL ONLINE USERS
-    try {
-        console.log("ids inside try: ", allOnlineIds);
-
+    try {  
         const { rows } = await db.getUsersByIds(allOnlineIds);
         // console.log('ROWS: ', rows);
-
+        // fire event only for the newly connected user
         io.sockets.sockets[socket.id].emit('allUsersOnline', rows);
 
     } catch (err) {
