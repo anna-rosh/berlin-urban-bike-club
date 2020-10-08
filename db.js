@@ -207,3 +207,13 @@ module.exports.findFriendshipsById = (id) => {
         [id]
     );
 };
+
+// used in OnlineUsers to get an array of connected users
+module.exports.getUsersByIds = arrOfIds => {
+    return db.query(
+        `SELECT id, first, last, img_url
+        FROM users
+        WHERE id = ANY($1)`,
+        [arrOfIds]
+    );
+};

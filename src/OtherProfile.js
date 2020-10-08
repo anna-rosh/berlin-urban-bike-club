@@ -45,18 +45,18 @@ export default class OtherProfile extends React.Component{
                     <div className="large-profile-pic-container">
                         <img className="profile-pic" src={(img_url)} alt={`${first} ${last}`} /> 
                     </div>
+                </div>
+                
+                <div className="profile-text-container other-profile-text-container">
+                    <div>
+                        <h1>{first} {last}</h1>
+                        <p>{bio}</p>
+                    </div>
                     <FriendButton currProfileId={this.state.id} />
                 </div>
                 
-                <div className="profile-text-container">
-                    <h1>
-                        {first} {last}
-                    </h1>
-                    <p>{bio}</p>
-                </div>
-                
 
-                {this.state.friends && <FriendsOfFriend profileId={id} />}
+                {this.state.friends && <FriendsOfFriend profileId={id} first={first} last={last} />}
             </div>
         );
 

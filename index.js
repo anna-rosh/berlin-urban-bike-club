@@ -369,7 +369,7 @@ app.post('/delete-profile', async (req, res) => {
     req.session.userId = null;
     console.log('userId: ', userId);
 
-    s3.delete(userId.toString());
+    // s3.delete(userId.toString());
 
     try {
         await db.deleteProfile(userId);
@@ -424,6 +424,9 @@ server.listen(8080, function() {
 });
 
 
+let onlineUsers = {};
+let ids = Object.values(onlineUsers);
+
 io.on('connection', async (socket) => {
     console.log("the following socked.id is connected: ", socket.id);
     const userId = socket.request.session.userId;
@@ -432,6 +435,7 @@ io.on('connection', async (socket) => {
         return socket.disconnect(true);
     }
 
+    /////////////////////////////// PUBLIC CHAT ///////////////////////////////
     // place for getting the last ten chat messages
     try {
         const { rows } = await db.getLastTenMessages();
@@ -458,6 +462,61 @@ io.on('connection', async (socket) => {
     }
 
 
+    ////////////////////////////////// SHOWING ONLINE USERS /////////////////////////////////////
+    let idsBeforeNewUser = Object.values(onlineUsers); // onlineUsers obj is declared outside of the socket in order to keep track of the joining users
+    // console.log('ids: ', ids);
+    // add the user who just connected to the socket (logged it)
+    onlineUsers[socket.id] = userId;
+    console.log('onlineUSers: ', onlineUsers);
+    let allOnlineIds = Object.values(onlineUsers);
 
+    // check if the newly logged in user's id is already in onlineUsers
+    // ADD NEW ONLINE USER
+    if (!idsBeforeNewUser.includes(userId)) {
+        // console.log('the value is not in the array yet! id: ', userId);
+        // console.log('socket.id of the joined user: ', socket.id);
+
+        // add a new user to the array of all users online
+        try {
+            const { rows } = await db.getUserById(userId);
+            // console.log('rows of the newly logged in user: ', rows[0]);
+
+            // console.log("socket.id of the joined user: ", socket.id);  
+
+            io.sockets.sockets[socket.id].broadcast.emit('userJoined', rows);
+
+            // io.sockets.emit("userJoined", rows);
+
+        } catch (err) {
+            console.log('err in getUserById in socket: ', err);
+        }
+
+    } // closes else statement
+
+    try {
+        console.log("ids inside try: ", allOnlineIds);
+
+        const { rows } = await db.getUsersByIds(allOnlineIds);
+        // console.log('ROWS: ', rows);
+
+        io.sockets.sockets[socket.id].emit('allUsersOnline', rows);
+
+    } catch (err) {
+        console.log('err in getUsersById: ', err);
+    }
+
+    socket.on("disconnect", () => {
+        delete onlineUsers[socket.id];
+        console.log('try to see what user in is: ', userId);
+
+        let userIdArr = Object.values(onlineUsers).filter((id) => id == userId);
+
+        console.log('userIdArr: ', userIdArr);
+
+        if (userIdArr.length == 0) {
+            
+        }
+
+    });
 
 });

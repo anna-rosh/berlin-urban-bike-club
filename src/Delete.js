@@ -33,14 +33,17 @@ export default function Delete() {
 
     return (
         <>
-            <p onClick={handleClickOnDelete}>delete my profile</p>
+            <p onClick={handleClickOnDelete} className="delete-profile-btn" >delete my profile</p>
             {showAreYouSure && (
                 <>
-                 <div className="are-you-sure-overlay"></div>
+                 <div className="are-you-sure-overlay" onClick={handleClickOnNo}></div>
                  <div className="are-you-sure-container">
-                     <h2>you are going to delete your profile. are you sure?</h2>
-                     <div className="ays-btn" onClick={handleClickOnNo}>no</div>
-                     <div className="ays-btn" onClick={handleClickOnYes}>yes</div>
+                     <h2>you are trying to delete your profile. are you sure?</h2>
+                     <div className="ays-btn-container">
+                        <div className="ays-btn" onClick={handleClickOnNo}>no</div>
+                        <div className="ays-btn" onClick={handleClickOnYes}>yes</div>
+                     </div>
+                     
                  </div>
                 </>
             )}

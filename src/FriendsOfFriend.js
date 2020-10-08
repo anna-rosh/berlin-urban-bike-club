@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { receiveFriendsOfFriend } from './actions';
 
 export default function FriendsOfFriend(props) {
@@ -17,12 +18,15 @@ export default function FriendsOfFriend(props) {
 
     return (
         <div className="friends-of-friend-component-container">
-            <h1>FRIENDS OF FRIEND</h1>
+            <h2>friends of {props.first}</h2>
             {friendsOfFriend.map((friend) => {
                 return (
-                    <div className="friends-of-friend-container" key={friend.id}>
+                    <Link className="friends-of-friend-container" key={friend.id} to={`/user/${friend.id}`}>
+                        <div className="friend-of-friend-profile-pic-container">
+                            <img className="profile-pic" src={friend.img_url} />
+                        </div>
                         <p>{friend.first} {friend.last}</p>
-                    </div>
+                    </Link>
                 );
             })}
         </div>

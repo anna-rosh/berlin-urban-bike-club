@@ -50,6 +50,8 @@ export function addChatMsg(msg) {
     };
 }
 
+//////////////////////////// FRIENDS OF FRIENDS //////////////////////////
+
 export async function receiveFriendsOfFriend(profileId) {
     const { data } = await axios.get('/friends-of-friend/' + profileId);
     console.log("data in receiveFriendsOfFriend", data);
@@ -57,5 +59,25 @@ export async function receiveFriendsOfFriend(profileId) {
     return {
         type: "RECEIVE_FRIENDS_OF_FRIEND",
         friendsOfFriend: data
+    };
+}
+
+////////////////////////// USERS ONLINE ////////////////////////////
+
+export function addNewOnlineUser(user) {
+    console.log('userInfo in actions: ', user);
+
+    return {
+        type: "ADD_NEW_ONLINE_USER",
+        user
+    };
+}
+
+export function displayAllOnlineUsers(users) {
+    console.log('online users in actions: ', users);
+
+    return {
+        type: "DISPLAY_ALL_ONLINE_USERS",
+        users
     };
 }

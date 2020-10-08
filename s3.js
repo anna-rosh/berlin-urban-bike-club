@@ -40,47 +40,47 @@ exports.upload = (req, res, next) => {
     }
 };
 
-exports.delete = async function emptyS3Directory(dir) {
-    const listParams = {
-        Bucket: "spicedling",
-        Prefix: dir,
-    };
+// exports.delete = async function emptyS3Directory(dir) {
+//     const listParams = {
+//         Bucket: "spicedling",
+//         Prefix: dir,
+//     };
 
-    console.log("directory: ", dir);
-    console.log('typeof dir', typeof dir);
+//     console.log("directory: ", dir);
+//     console.log('typeof dir', typeof dir);
 
-    let listedObjects;
-    try {
-        listedObjects = await s3.listObjectsV2(listParams).promise(); 
-    } catch (err) {
-        console.log("err in s3.listObjectsV2", err);
-    }
+//     let listedObjects;
+//     try {
+//         listedObjects = await s3.listObjectsV2(listParams).promise(); 
+//     } catch (err) {
+//         console.log("err in s3.listObjectsV2", err);
+//     }
     
 
-    if (listedObjects.Contents.length === 0) return;
+//     if (listedObjects.Contents.length === 0) return;
 
-    const deleteParams = {
-        Bucket: "spicedling",
-        Delete: { Objects: [] },
-    };
+//     const deleteParams = {
+//         Bucket: "spicedling",
+//         Delete: { Objects: [] },
+//     };
 
-    listedObjects.Contents.forEach(({ Key }) => {
-        deleteParams.Delete.Objects.push({ Key });
-    });
+//     listedObjects.Contents.forEach(({ Key }) => {
+//         deleteParams.Delete.Objects.push({ Key });
+//     });
 
-    try {
-        await s3.deleteObjects(deleteParams).promise(); 
-    } catch (err) {
-        console.log("err in s3.deleteObjects", err);
-    }
+//     try {
+//         await s3.deleteObjects(deleteParams).promise(); 
+//     } catch (err) {
+//         console.log("err in s3.deleteObjects", err);
+//     }
     
 
-    if (listedObjects.IsTruncated) {
-        try {
-            await emptyS3Directory(dir); 
-        } catch (err) {
-            console.log("err in emptyS3Directory", err);
-        }
-    }
+//     if (listedObjects.IsTruncated) {
+//         try {
+//             await emptyS3Directory(dir); 
+//         } catch (err) {
+//             console.log("err in emptyS3Directory", err);
+//         }
+//     }
     
-};
+// };

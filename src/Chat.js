@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { socket } from './socket';
 import { useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
+import OnlineUsers from './OnlineUsers';
 
 
 export default function Chat() {
@@ -60,7 +61,9 @@ export default function Chat() {
             <div className="chat-message-form">
                 <label htmlFor="chat-message-textarea">your message:</label>
                 <textarea id="chat-message-textarea" onKeyDown={keyCheck}></textarea>
-            </div>  
+            </div>
+
+            <OnlineUsers />
         </div>
     ); // closes return statement
 
