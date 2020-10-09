@@ -1,6 +1,7 @@
 import React from "react";
 import ProfilePic from './ProfilePic';
 import BioEditor from "./BioEditor";
+import OnlineUsers from "./OnlineUsers";
 
 export default function({first, last, imageUrl, clickHandler, bio, setBio}) {
     return (
@@ -24,6 +25,7 @@ export default function({first, last, imageUrl, clickHandler, bio, setBio}) {
                     setBio={setBio}
                 />
             </div>
+            <OnlineUsers />
         </div>
     );
 }

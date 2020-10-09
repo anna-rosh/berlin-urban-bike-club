@@ -295,6 +295,9 @@
 .app-header {
     border-bottom: 1px solid rgb(121, 121, 121);
     height: 65px;
+    position: fixed;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.5);
 }
 
 .app-header .header-content {
@@ -413,11 +416,12 @@
     object-fit: cover;
 }
 
+
 /* ANY PROFILE ********************* ANY PROFILE ************** ANY PROFILE ********* */
 .app-container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 30px 1%;
+    padding: 90px 1% 30px;
 }
 
 .app-container .profile-container {
@@ -1124,4 +1128,17 @@
     outline: none;
     transition: color 0.3;
     color: blue;
+}
+
+.profile-container .users-online-container-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 1px solid rgb(207, 204, 204);
+    border-top: none;
+    padding: 0 10px;
+}
+
+.profile-container .users-online-container-profile h3 {
+    margin-bottom: 10px;
 }

@@ -6,7 +6,7 @@ export default function OnlineUsers() {
     const onlineUsers = useSelector((state) => state && state.onlineUsers);
 
     return (
-        <div className="users-online-container">
+        <div className="users-online-container users-online-container-profile">
             <h3>users online:</h3>
             {onlineUsers && onlineUsers.map(user => {
                 return (
